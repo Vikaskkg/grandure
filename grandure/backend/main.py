@@ -138,13 +138,26 @@ async def enrich(messages: list[dict]) -> str:
                 break
     date_str = m.group(0) if m else None
 
+    # Extract nights and pax from full conversation history
+    nights_match = None
+    pax_match    = None
+    for msg in reversed(messages):
+        content = msg.get("content","")
+        if not nights_match:
+            nights_match = re.search(r"(\d+)\s+night", content, re.I)
+        if not pax_match:
+            pax_match = re.search(r"(\d+)\s*(?:guest|person|people|adult|pax|of\s+us)", content, re.I)
+        if nights_match and pax_match:
+            break
+    nights = int(nights_match.group(1)) if nights_match else 1
+    pax    = int(pax_match.group(1))    if pax_match    else 1
+
     # Room lookup
-    if date_str and any(w in ll for w in ["room","suite","available","book","reserve","stay","night","check in"]):
+    if date_str and any(w in ll for w in ["room","suite","available","book","reserve","stay","night","check in","guest"]):
         rt    = next(({"presidential":"Presidential Suite","junior":"Junior Suite",
                        "superior":"Superior","standard":"Standard"}[k]
                       for k in ["presidential","junior","superior","standard"] if k in ll), None)
-        nights = int(n.group(1)) if (n := re.search(r"(\d+)\s+night", ll)) else 1
-        p = {"date": date_str, "nights": nights}
+        p = {"date": date_str, "nights": nights, "guests": pax}
         if rt: p["room_type"] = rt
         ctx.append(f"[LIVE ROOM AVAILABILITY]\n{fmt(await mcp('check_room_availability', p))}")
 
@@ -185,19 +198,21 @@ Recommend immediately from the RAG knowledge below. Do not interrogate the guest
 When a guest mentions an occasion, a room type, a treatment, or a venue — describe it beautifully and state the price.
 Trust the RAG. Make the recommendation first. Ask for details only when the guest is ready to confirm a reservation.
 
-WHEN TO ASK FOR A DATE
-ONLY ask for a check-in date when: (a) the guest explicitly says "book", "reserve", "I'd like to stay", or "how do I book", AND (b) LIVE AVAILABILITY DATA does not already appear above this prompt.
-In every other situation — exploring rooms, asking about spa, asking about dining, asking about occasions — do NOT ask for a date. Just describe and recommend.
+WHEN TO ASK FOR BOOKING DETAILS
+ONLY enter booking-collection mode when the guest explicitly says "book", "reserve", "I'd like to stay", or "how do I book".
+In every other situation — exploring rooms, asking about spa, asking about dining, asking about occasions — do NOT ask for dates or numbers. Just describe and recommend.
 
-NEVER ask for check-in date, number of nights, or number of guests when the guest is asking about spa or dining.
-NEVER ask for check-in date more than once in a conversation.
+NEVER ask for check-in date when the guest is only asking about spa or dining.
 NEVER ask for two pieces of information in the same reply.
+NEVER repeat a question already answered in the conversation history.
 
 BOOKING FLOW (only triggered by explicit booking intent)
-If the guest says they want to book a room AND no LIVE DATA is present:
-  Ask for check-in date only — nothing else in that reply.
-When date is provided AND LIVE AVAILABILITY DATA appears above:
-  Confirm one specific available room. State type, floor, price per night.
+Collect one piece of missing information per reply, in this order:
+  Step 1 — If no check-in date in history: ask "What date would you like to check in?"
+  Step 2 — If no number of nights in history: ask "How many nights will you be staying?"
+  Step 3 — If no number of guests in history: ask "How many guests will be joining you?"
+  Step 4 — Once date, nights, and guests are all known AND LIVE AVAILABILITY DATA appears above:
+            Confirm one specific available room. State type, floor, nightly rate, and total cost.
 After room confirmed → suggest one spa treatment matching the occasion (from RAG).
 After spa addressed → suggest one dining option (from RAG).
 After dining addressed → ask for email and give the summary.
@@ -218,7 +233,10 @@ After every reply, on a new final line, write exactly:
 [QR: "phrase 1" | "phrase 2" | "phrase 3"]
 Rules:
 - Short phrases the GUEST would say next — 5 words or fewer, natural speech.
-- Spa enquiry → treatment names. Dining → venue or dish. Room exploring → room type or occasion. Booking stage → dates.
+- Spa enquiry → treatment names. Dining → venue or dish. Room exploring → room type or occasion.
+- After asking for check-in date → suggest specific dates: "June 10", "June 14", "July 5".
+- After asking for nights → suggest durations: "2 nights", "3 nights", "5 nights".
+- After asking for guests → suggest counts: "1 guest", "2 guests", "4 guests".
 - NEVER suggest system actions ("send email", "confirm booking").
 - OMIT entirely when asking for email or presenting the final summary.
 
