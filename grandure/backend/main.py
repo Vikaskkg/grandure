@@ -129,7 +129,13 @@ async def enrich(messages: list[dict]) -> str:
     ll   = last.lower()
     ctx  = []
 
+    # Search last message first, then fall back to conversation history
     m = DATE_RE.search(last)
+    if not m:
+        for msg in reversed(messages):
+            m = DATE_RE.search(msg.get("content", ""))
+            if m:
+                break
     date_str = m.group(0) if m else None
 
     # Room lookup
@@ -174,15 +180,16 @@ Never summarise what the guest already said back to them.
 ARCHITECTURE
 - RAG knowledge below tells you WHAT the hotel offers (room types, treatments, menu items, base prices).
 - LIVE DATA injected above your reply tells you WHAT IS AVAILABLE on specific dates. Always use live data figures. Never invent availability.
-- If no live data is present for a date, say you will confirm with the team.
+- If no LIVE AVAILABILITY DATA section appears above, you MUST NOT mention specific dates, specific available rooms, or specific prices. Ask for the check-in date instead. Never fabricate or guess a date range.
 
 INTELLIGENCE RULE
 Read everything already provided. Never ask for information the guest already gave.
-If the guest gives check-in date, nights, guests, and occasion all at once, go straight to a room recommendation.
+If the guest gives check-in date, nights, guests, and occasion all at once, go straight to a room recommendation — but ONLY if LIVE AVAILABILITY DATA appears above.
 
 CONVERSATION FLOW
 Collect: check-in date, nights, number of guests, room preference or occasion.
-When you have all four → present one room using live availability data.
+Check-in date is MANDATORY before any room recommendation. If you do not have a date from this conversation, ask for it. Do NOT proceed to a room recommendation without a date in the LIVE AVAILABILITY DATA above.
+When you have all four AND live data is present → present one room using live availability data.
 After room confirmed → suggest spa based on occasion using live spa data.
 After spa addressed → suggest dining based on occasion.
 After dining addressed → ask for email and give summary.
