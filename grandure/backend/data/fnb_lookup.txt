@@ -1,0 +1,66 @@
+GRANDURE HOTEL FOOD AND BEVERAGE JUNE 2026
+
+OUTLETS
+Grandure Restaurant | Fine Dining | Breakfast 07:00-11:00 Lunch 12:00-15:00 Dinner 18:30-22:30 | Smart casual
+Pool Bar Grill | Casual | 10:00-22:00 | Casual dress
+Rooftop Lounge | Bar Lounge | 17:00-01:00 | Smart casual
+Spa Lounge | Wellness | 09:00-20:00 | Robe or casual
+Room Service | In-room | 06:00-23:00 | GBP5 surcharge per order
+
+MENU ITEMS format: Name | Category | BaseGBP | WeekendGBP | PeakGBP | Outlets
+
+Full English Breakfast | Breakfast | GBP22 | GBP24.0 | GBP25.5 | Grandure Restaurant,Room Service
+Eggs Benedict | Breakfast | GBP18 | GBP19.5 | GBP20.5 | Grandure Restaurant,Room Service
+Avocado Poached Eggs | Breakfast | GBP16 | GBP17.5 | GBP18.5 | Grandure Restaurant,Spa Lounge,Room Service
+Continental Basket | Breakfast | GBP14 | GBP15.0 | GBP16.0 | Grandure Restaurant,Room Service
+Granola Berries | Breakfast | GBP10 | GBP11.0 | GBP11.5 | Grandure Restaurant,Spa Lounge,Room Service
+Smoothie Bowl | Breakfast | GBP12 | GBP13.0 | GBP14.0 | Spa Lounge,Room Service
+Soup of the Day | Starter | GBP9 | GBP9.5 | GBP10.5 | Grandure Restaurant,Room Service
+Bruschetta Trio | Starter | GBP12 | GBP13.0 | GBP14.0 | Grandure Restaurant,Pool Bar Grill,Rooftop Lounge
+Charcuterie Board | Starter | GBP22 | GBP24.0 | GBP25.5 | Grandure Restaurant,Rooftop Lounge,Room Service
+Cheese Board | Starter | GBP20 | GBP21.5 | GBP23.0 | Grandure Restaurant,Rooftop Lounge,Room Service
+Halloumi Fries | Starter | GBP11 | GBP12.0 | GBP12.5 | Pool Bar Grill,Rooftop Lounge
+Prawn Cocktail | Starter | GBP14 | GBP15.0 | GBP16.0 | Grandure Restaurant,Room Service
+Smoked Salmon Blinis | Starter | GBP16 | GBP17.5 | GBP18.5 | Grandure Restaurant,Rooftop Lounge
+Pan-Seared Sea Bass | Main | GBP34 | GBP36.5 | GBP39.0 | Grandure Restaurant,Room Service
+8oz Ribeye Steak | Main | GBP45 | GBP48.5 | GBP51.5 | Grandure Restaurant,Pool Bar Grill,Room Service
+Grilled Chicken Supreme | Main | GBP28 | GBP30.0 | GBP32.0 | Grandure Restaurant,Room Service
+Wild Mushroom Risotto | Main | GBP24 | GBP26.0 | GBP27.5 | Grandure Restaurant,Room Service
+Plant-Based Burger | Main | GBP19 | GBP20.5 | GBP22.0 | Pool Bar Grill,Room Service
+Classic Club Sandwich | Main | GBP18 | GBP19.5 | GBP20.5 | Pool Bar Grill,Room Service
+Caesar Salad | Main | GBP16 | GBP17.5 | GBP18.5 | Grandure Restaurant,Pool Bar Grill,Room Service
+Mezze Platter | Main | GBP21 | GBP22.5 | GBP24.0 | Pool Bar Grill,Rooftop Lounge
+Chocolate Fondant | Dessert | GBP12 | GBP13.0 | GBP14.0 | Grandure Restaurant,Room Service
+Creme Brulee | Dessert | GBP10 | GBP11.0 | GBP11.5 | Grandure Restaurant,Room Service
+Fruit Pavlova | Dessert | GBP11 | GBP12.0 | GBP12.5 | Grandure Restaurant,Room Service
+Azure Sundae | Dessert | GBP9 | GBP9.5 | GBP10.5 | Pool Bar Grill,Room Service
+Champagne Glass Moet | Champagne | GBP18 | GBP19.5 | GBP20.5 | Grandure Restaurant,Rooftop Lounge,Room Service
+Champagne Bottle Moet | Champagne | GBP95 | GBP102.5 | GBP109.0 | Grandure Restaurant,Rooftop Lounge,Room Service
+Whispering Angel Rose Bottle | Wine | GBP65 | GBP70.0 | GBP75.0 | Grandure Restaurant,Rooftop Lounge,Room Service
+Chablis Premier Cru Bottle | Wine | GBP55 | GBP59.5 | GBP63.0 | Grandure Restaurant,Room Service
+Rioja Reserva Bottle | Wine | GBP60 | GBP65.0 | GBP69.0 | Grandure Restaurant,Room Service
+House White Glass | Wine | GBP9 | GBP9.5 | GBP10.5 | Grandure Restaurant,Pool Bar Grill,Rooftop Lounge,Room Service
+House Red Glass | Wine | GBP9 | GBP9.5 | GBP10.5 | Grandure Restaurant,Pool Bar Grill,Rooftop Lounge,Room Service
+House Rose Glass | Wine | GBP10 | GBP11.0 | GBP11.5 | Grandure Restaurant,Pool Bar Grill,Rooftop Lounge,Room Service
+Aperol Spritz | Cocktail | GBP14 | GBP15.0 | GBP16.0 | Pool Bar Grill,Rooftop Lounge,Grandure Restaurant
+Classic Mojito | Cocktail | GBP13 | GBP14.0 | GBP15.0 | Pool Bar Grill,Rooftop Lounge
+Espresso Martini | Cocktail | GBP14 | GBP15.0 | GBP16.0 | Rooftop Lounge,Grandure Restaurant
+Negroni | Cocktail | GBP14 | GBP15.0 | GBP16.0 | Rooftop Lounge,Grandure Restaurant
+Passion Fruit Daiquiri | Cocktail | GBP13 | GBP14.0 | GBP15.0 | Pool Bar Grill,Rooftop Lounge
+Old Fashioned | Cocktail | GBP15 | GBP16.0 | GBP17.0 | Rooftop Lounge,Grandure Restaurant
+Gin and Tonic | Cocktail | GBP12 | GBP13.0 | GBP14.0 | Pool Bar Grill,Rooftop Lounge,Grandure Restaurant
+Virgin Mojito | Mocktail | GBP9 | GBP9.5 | GBP10.5 | Pool Bar Grill,Rooftop Lounge,Spa Lounge
+Azure Signature Mocktail | Mocktail | GBP10 | GBP11.0 | GBP11.5 | Pool Bar Grill,Rooftop Lounge,Spa Lounge
+Espresso | HotDrink | GBP4 | GBP4.5 | GBP4.5 | Grandure Restaurant,Pool Bar Grill,Spa Lounge,Room Service
+Cappuccino | HotDrink | GBP5 | GBP5.5 | GBP6.0 | Grandure Restaurant,Pool Bar Grill,Spa Lounge,Room Service
+Matcha Latte | HotDrink | GBP6 | GBP6.5 | GBP7.0 | Spa Lounge,Room Service
+Herbal Tea | HotDrink | GBP4 | GBP4.5 | GBP4.5 | Grandure Restaurant,Spa Lounge,Room Service
+Hot Chocolate | HotDrink | GBP6 | GBP6.5 | GBP7.0 | Grandure Restaurant,Spa Lounge,Room Service
+Turmeric Golden Latte | HotDrink | GBP7 | GBP7.5 | GBP8.0 | Spa Lounge,Room Service
+Fresh Orange Juice | ColdDrink | GBP6 | GBP6.5 | GBP7.0 | Grandure Restaurant,Pool Bar Grill,Room Service
+Green Smoothie | ColdDrink | GBP8 | GBP8.5 | GBP9.0 | Spa Lounge,Pool Bar Grill,Room Service
+Still Water | ColdDrink | GBP3 | GBP3.0 | GBP3.5 | All outlets
+Sparkling Water | ColdDrink | GBP3 | GBP3.0 | GBP3.5 | All outlets
+Collagen Beauty Drink | Wellness | GBP12 | GBP13.0 | GBP14.0 | Spa Lounge,Room Service
+Wellness Detox Shot | Wellness | GBP7 | GBP7.5 | GBP8.0 | Spa Lounge
+Recovery Protein Shake | Wellness | GBP10 | GBP11.0 | GBP11.5 | Spa Lounge,Room Service

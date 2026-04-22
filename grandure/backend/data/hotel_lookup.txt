@@ -1,0 +1,181 @@
+GRANDURE HOTEL ROOM AVAILABILITY AND PRICING JUNE 2026
+
+DATE 01 Jun 2026 Mon
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 BOOKED
+
+DATE 02 Jun 2026 Tue
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 03 Jun 2026 Wed
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 04 Jun 2026 Thu
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 05 Jun 2026 Fri
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 06 Jun 2026 Sat PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 AVAILABLE
+
+DATE 07 Jun 2026 Sun PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 BOOKED
+
+DATE 08 Jun 2026 Mon
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 BOOKED
+
+DATE 09 Jun 2026 Tue
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 BOOKED
+
+DATE 10 Jun 2026 Wed
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 11 Jun 2026 Thu
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 12 Jun 2026 Fri
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 13 Jun 2026 Sat PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 AVAILABLE
+
+DATE 14 Jun 2026 Sun PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 BOOKED
+
+DATE 15 Jun 2026 Mon
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 16 Jun 2026 Tue
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 BOOKED
+
+DATE 17 Jun 2026 Wed
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 18 Jun 2026 Thu
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 19 Jun 2026 Fri PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 BOOKED
+
+DATE 20 Jun 2026 Sat PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 AVAILABLE
+
+DATE 21 Jun 2026 Sun PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 AVAILABLE
+
+DATE 22 Jun 2026 Mon
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 23 Jun 2026 Tue
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 24 Jun 2026 Wed
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 BOOKED
+
+DATE 25 Jun 2026 Thu
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 26 Jun 2026 Fri PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 BOOKED
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 BOOKED
+
+DATE 27 Jun 2026 Sat PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 AVAILABLE
+
+DATE 28 Jun 2026 Sun PEAK
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1440 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP540 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP265 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP155 AVAILABLE
+
+DATE 29 Jun 2026 Mon
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 BOOKED
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 BOOKED
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 AVAILABLE
+
+DATE 30 Jun 2026 Tue
+  Presidential Suite Floor 5 Ocean view King + King 4guests GBP1200 AVAILABLE
+  Junior Suite Floor 4 City/Pool King 3guests GBP450 AVAILABLE
+  Superior Floor 3 Garden/City Queen/Twin 2guests GBP220 AVAILABLE
+  Standard Floor 1 Courtyard Double/Twin 2guests GBP130 BOOKED

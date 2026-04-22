@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grandure Hotel · Knightsbridge · London</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & Tokens ──────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#040302;
+  --obsidian:#080604;
+  --charcoal:#110E09;
+  --surface:#1A1610;
+  --gold:#C9A84C;
+  --gold-dim:#A8872E;
+  --gold-pale:rgba(201,168,76,0.15);
+  --gold-glow:rgba(201,168,76,0.3);
+  --ivory:#F0EBE0;
+  --platinum:#E8E3DA;
+  --muted:rgba(240,235,224,0.45);
+  --border:rgba(201,168,76,0.18);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ivory);font-family:var(--sans);font-weight:300;overflow-x:hidden}
+
+/* ── Navigation ──────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:32px 72px;
+  transition:all 0.5s var(--ease);
+}
+nav.scrolled{
+  background:rgba(4,3,2,0.82);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:20px 72px;
+}
+.nav-logo{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:5px}
+.nav-logo-name{
+  font-family:var(--serif);font-size:24px;font-weight:400;
+  letter-spacing:0.22em;color:#fff;transition:color 0.4s;
+}
+.nav-logo-sub{
+  font-family:var(--sans);font-size:7.5px;letter-spacing:0.38em;
+  text-transform:uppercase;color:var(--gold);
+  opacity:0;transition:opacity 0.4s;
+}
+nav.scrolled .nav-logo-sub{opacity:1}
+.nav-links{display:flex;gap:44px;list-style:none}
+.nav-links a{
+  font-family:var(--sans);font-size:9.5px;letter-spacing:0.26em;
+  text-transform:uppercase;color:rgba(255,255,255,0.65);
+  text-decoration:none;transition:color 0.25s;
+}
+.nav-links a:hover{color:var(--gold)}
+.nav-book{
+  font-family:var(--sans);font-size:9px;letter-spacing:0.22em;
+  text-transform:uppercase;background:transparent;
+  color:rgba(255,255,255,0.7);
+  border:1px solid rgba(201,168,76,0.4);
+  padding:11px 30px;cursor:pointer;transition:all 0.3s;
+}
+.nav-book:hover{
+  background:var(--gold);color:var(--void);
+  border-color:var(--gold);
+  box-shadow:0 0 24px var(--gold-glow);
+}
+
+/* ── Hero ──────────────────────────────────────────────── */
+.hero{
+  height:100vh;min-height:700px;
+  position:relative;display:flex;align-items:flex-end;overflow:hidden;
+  background:var(--void);
+}
+#heroCanvas{position:absolute;inset:0;z-index:1;opacity:0.7}
+.hero-photo{
+  position:absolute;inset:0;z-index:2;
+  background:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1800&q=80') center/cover;
+  opacity:0.28;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:3;
+  background:linear-gradient(
+    135deg,
+    rgba(4,3,2,0.96) 0%,
+    rgba(4,3,2,0.6) 50%,
+    rgba(4,3,2,0.3) 100%
+  );
+}
+.hero-overlay-b{
+  position:absolute;inset:0;z-index:3;
+  background:linear-gradient(to top,rgba(4,3,2,1) 0%,transparent 55%);
+}
+.hero-inner{
+  position:relative;z-index:4;
+  padding:0 72px 100px;
+  max-width:760px;
+}
+.hero-tag{
+  font-family:var(--sans);font-size:9px;letter-spacing:0.45em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:28px;display:flex;align-items:center;gap:20px;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp 0.9s 0.3s var(--ease) forwards;
+}
+.hero-tag::before{content:'';width:40px;height:1px;background:var(--gold)}
+.hero-h1{
+  font-family:var(--serif);
+  font-size:clamp(58px,8vw,104px);
+  font-weight:300;color:#fff;
+  line-height:1.0;margin-bottom:28px;
+  letter-spacing:-0.01em;
+  opacity:0;transform:translateY(24px);
+  animation:fadeUp 1s 0.5s var(--ease) forwards;
+}
+.hero-h1 em{
+  font-style:italic;color:var(--gold);
+  display:block;
+}
+.hero-p{
+  font-family:var(--serif);font-size:18px;
+  color:rgba(240,235,224,0.55);line-height:1.9;
+  margin-bottom:52px;font-style:italic;max-width:500px;
+  opacity:0;transform:translateY(20px);
+  animation:fadeUp 1s 0.7s var(--ease) forwards;
+}
+.ctas{
+  display:flex;gap:16px;flex-wrap:wrap;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp 1s 0.9s var(--ease) forwards;
+}
+.btn-g{
+  font-family:var(--sans);font-size:9.5px;letter-spacing:0.24em;
+  text-transform:uppercase;
+  background:var(--gold);color:var(--void);
+  padding:16px 48px;border:none;cursor:pointer;
+  transition:all 0.35s;text-decoration:none;display:inline-block;
+  position:relative;overflow:hidden;
+}
+.btn-g::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  transform:translateX(-100%);transition:transform 0.5s;
+}
+.btn-g:hover{box-shadow:0 0 32px var(--gold-glow)}
+.btn-g:hover::after{transform:translateX(100%)}
+.btn-ghost{
+  font-family:var(--sans);font-size:9.5px;letter-spacing:0.24em;
+  text-transform:uppercase;background:transparent;color:var(--ivory);
+  padding:16px 48px;border:1px solid rgba(240,235,224,0.3);
+  cursor:pointer;transition:all 0.35s;text-decoration:none;display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── Scroll Reveal ──────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(44px);transition:opacity 0.9s var(--ease),transform 0.9s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:0.1s}
+.reveal-d2{transition-delay:0.2s}
+.reveal-d3{transition-delay:0.3s}
+.reveal-d4{transition-delay:0.4s}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* ── Sections ─────────────────────────────────────────── */
+.sec{padding:140px 72px;position:relative}
+.sec-dark{background:var(--obsidian)}
+.sec-mid{background:var(--charcoal)}
+.eyebrow{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.38em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:20px;
+  display:flex;align-items:center;gap:16px;
+}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+.sec-h2{
+  font-family:var(--serif);font-size:clamp(40px,5vw,66px);
+  font-weight:300;line-height:1.06;margin-bottom:22px;color:var(--ivory);
+}
+.sec-h2 em{font-style:italic;color:var(--gold)}
+.sec-p{
+  font-family:var(--serif);font-size:18px;
+  color:var(--muted);line-height:1.9;font-style:italic;max-width:560px;
+}
+.rule{width:48px;height:1px;background:var(--gold);margin:28px 0}
+
+/* ── Room Cards (3D tilt) ─────────────────────────────── */
+.rooms-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4px;margin-top:80px;
+}
+.room-card{
+  position:relative;overflow:hidden;
+  cursor:pointer;background:var(--void);
+  transform-style:preserve-3d;
+  transition:transform 0.15s ease,box-shadow 0.15s ease;
+  will-change:transform;
+}
+.room-card:first-child{grid-column:span 2;aspect-ratio:21/8}
+.room-card:not(:first-child){aspect-ratio:4/3}
+.room-card img{
+  width:100%;height:100%;object-fit:cover;
+  opacity:0.6;transition:opacity 0.5s,transform 0.7s var(--ease);
+  display:block;
+}
+.room-card:hover img{opacity:0.4;transform:scale(1.06)}
+.room-shine{
+  position:absolute;inset:0;z-index:2;
+  background:radial-gradient(circle at 50% 50%,rgba(201,168,76,0.12),transparent 65%);
+  opacity:0;transition:opacity 0.3s;pointer-events:none;
+}
+.room-card:hover .room-shine{opacity:1}
+.room-info{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  padding:40px 44px;
+  background:linear-gradient(to top,rgba(4,3,2,0.95) 0%,transparent 100%);
+}
+.room-tag{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:8px;
+}
+.room-name{
+  font-family:var(--serif);font-size:28px;font-weight:300;
+  color:#fff;margin-bottom:6px;letter-spacing:0.02em;
+}
+.room-price{
+  font-family:var(--sans);font-size:11px;
+  letter-spacing:0.1em;color:rgba(255,255,255,0.4);
+}
+.room-border{
+  position:absolute;inset:0;z-index:4;
+  border:1px solid transparent;transition:border-color 0.3s;pointer-events:none;
+}
+.room-card:hover .room-border{border-color:rgba(201,168,76,0.3)}
+
+/* ── Experience Cards ─────────────────────────────────── */
+.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:80px}
+.exp-card{
+  background:var(--surface);padding:56px 44px;
+  border:1px solid transparent;
+  transition:border-color 0.4s,background 0.4s,transform 0.4s var(--ease);
+  cursor:default;position:relative;overflow:hidden;
+}
+.exp-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform 0.5s var(--ease);
+}
+.exp-card:hover::before{transform:scaleX(1)}
+.exp-card:hover{
+  border-color:var(--border);
+  background:var(--charcoal);
+  transform:translateY(-6px);
+  box-shadow:0 24px 60px rgba(0,0,0,0.5);
+}
+.exp-num{
+  font-family:var(--serif);font-size:52px;font-weight:300;
+  color:rgba(201,168,76,0.12);position:absolute;top:28px;right:32px;
+  line-height:1;pointer-events:none;transition:color 0.4s;
+}
+.exp-card:hover .exp-num{color:rgba(201,168,76,0.22)}
+.exp-ic{
+  width:52px;height:52px;margin-bottom:28px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--gold);
+  transition:box-shadow 0.4s;
+}
+.exp-card:hover .exp-ic{box-shadow:0 0 20px var(--gold-glow)}
+.exp-h3{
+  font-family:var(--serif);font-size:24px;font-weight:300;
+  color:var(--ivory);margin-bottom:14px;
+}
+.exp-p{
+  font-family:var(--serif);font-size:15px;font-style:italic;
+  color:var(--muted);line-height:1.8;
+}
+.exp-a{
+  display:inline-block;margin-top:24px;
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--gold);text-decoration:none;
+  border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:3px;
+  transition:border-color 0.3s;
+}
+.exp-a:hover{border-color:var(--gold)}
+
+/* ── Feature Split ────────────────────────────────────── */
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:600px}
+.split-img{overflow:hidden;background:var(--void);position:relative}
+.split-img img{
+  width:100%;height:100%;object-fit:cover;
+  opacity:0.7;transition:transform 0.9s var(--ease),opacity 0.5s;display:block;
+}
+.split:hover .split-img img{transform:scale(1.05);opacity:0.55}
+.split-txt{
+  background:var(--charcoal);
+  padding:100px 88px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-left:1px solid var(--border);
+}
+.split-txt .btn-ghost{margin-top:44px;align-self:flex-start}
+
+/* ── Quote ────────────────────────────────────────────── */
+.quote{
+  background:var(--charcoal);
+  padding:140px 72px;text-align:center;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.quote::before{
+  content:'';position:absolute;
+  top:50%;left:50%;
+  width:600px;height:600px;
+  margin:-300px 0 0 -300px;
+  background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.q-mark{
+  font-family:var(--serif);font-size:96px;color:var(--gold);
+  line-height:0.5;margin-bottom:44px;display:block;opacity:0.6;
+}
+.q-text{
+  font-family:var(--serif);
+  font-size:clamp(24px,3.2vw,40px);
+  font-weight:300;font-style:italic;color:var(--ivory);
+  max-width:860px;margin:0 auto 32px;line-height:1.55;
+}
+.q-attr{
+  font-family:var(--sans);font-size:9px;letter-spacing:0.32em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+footer{
+  background:var(--void);
+  border-top:1px solid var(--border);
+  padding:96px 72px 40px;
+}
+.footer-g{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:60px;margin-bottom:64px;
+}
+.f-brand{
+  font-family:var(--serif);font-size:30px;
+  letter-spacing:0.18em;color:#fff;margin-bottom:16px;
+}
+.f-tag{
+  font-family:var(--serif);font-size:15px;font-style:italic;
+  color:rgba(240,235,224,0.28);line-height:1.7;
+}
+.f-head{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.32em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:20px;
+}
+.f-links{list-style:none}
+.f-links li{margin-bottom:12px}
+.f-links a{
+  font-family:var(--sans);font-size:12px;
+  color:rgba(240,235,224,0.3);text-decoration:none;
+  letter-spacing:0.06em;transition:color 0.2s;
+}
+.f-links a:hover{color:var(--gold)}
+.f-bottom{
+  border-top:1px solid rgba(201,168,76,0.1);
+  padding-top:28px;display:flex;
+  justify-content:space-between;align-items:center;
+}
+.f-copy{
+  font-family:var(--sans);font-size:9.5px;
+  color:rgba(240,235,224,0.18);letter-spacing:0.1em;
+}
+.f-badge{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(201,168,76,0.25);padding:8px 20px;
+}
+
+/* ── Chat FAB ─────────────────────────────────────────── */
+.chat-fab{
+  position:fixed;bottom:36px;right:36px;z-index:600;
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(8,6,4,0.9);
+  border:1px solid var(--gold);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:3px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 0 var(--gold-glow);
+  transition:transform 0.3s var(--ease),box-shadow 0.3s;
+  backdrop-filter:blur(12px);
+}
+.chat-fab:hover{
+  transform:scale(1.1);
+  box-shadow:0 12px 40px rgba(0,0,0,0.6),0 0 28px var(--gold-glow);
+}
+.fab-pulse{
+  position:absolute;top:3px;right:3px;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--gold);border:2px solid var(--void);
+}
+.fab-pulse::after{
+  content:'';position:absolute;inset:-3px;
+  border-radius:50%;background:rgba(201,168,76,0.4);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:0}}
+.fab-lbl{
+  font-family:var(--sans);font-size:6.5px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--gold);margin-top:1px;
+}
+
+/* ── Chat Pane ────────────────────────────────────────── */
+.chat-pane{
+  position:fixed;bottom:120px;right:36px;z-index:600;
+  width:460px;
+  background:rgba(6,5,3,0.92);
+  backdrop-filter:blur(32px);
+  -webkit-backdrop-filter:blur(32px);
+  border:1px solid var(--border);
+  box-shadow:0 32px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(201,168,76,0.06);
+  display:flex;flex-direction:column;
+  transform:translateY(20px) scale(0.95);
+  opacity:0;pointer-events:none;
+  transition:all 0.4s var(--ease);
+  max-height:calc(100vh - 160px);
+}
+.chat-pane.open{transform:none;opacity:1;pointer-events:all}
+
+/* chat header */
+.c-head{
+  padding:18px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:rgba(201,168,76,0.04);
+  flex-shrink:0;
+}
+.c-head-l{display:flex;align-items:center;gap:14px}
+.c-av{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gold-dim),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:16px;color:var(--void);font-weight:600;
+  box-shadow:0 0 16px rgba(201,168,76,0.25);
+}
+.c-name{
+  font-family:var(--serif);font-size:16px;
+  font-weight:400;color:var(--ivory);letter-spacing:0.04em;
+}
+.c-status{
+  font-family:var(--sans);font-size:8px;letter-spacing:0.12em;
+  color:rgba(201,168,76,0.7);margin-top:2px;
+}
+.c-dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--gold);margin-right:5px;vertical-align:middle;
+  animation:blink 2.4s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.c-btns{display:flex;gap:2px;align-items:center}
+.c-btn{
+  background:none;border:none;cursor:pointer;
+  color:rgba(240,235,224,0.28);font-size:13px;
+  padding:6px 8px;transition:color 0.2s;line-height:1;
+}
+.c-btn:hover{color:var(--gold)}
+
+/* provider bar */
+.prov-bar{
+  background:rgba(4,3,2,0.6);
+  border-bottom:1px solid rgba(201,168,76,0.08);
+  padding:10px 18px;display:none;gap:7px;flex-wrap:wrap;
+  align-items:center;flex-shrink:0;
+}
+.prov-bar.on{display:flex}
+.prov-lbl{
+  font-family:var(--sans);font-size:7.5px;letter-spacing:0.2em;
+  text-transform:uppercase;color:rgba(240,235,224,0.2);margin-right:4px;
+}
+.pb{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.1em;
+  padding:5px 13px;border:1px solid rgba(201,168,76,0.15);
+  background:transparent;color:rgba(240,235,224,0.35);
+  cursor:pointer;border-radius:2px;transition:all 0.2s;
+}
+.pb:hover{color:var(--ivory);border-color:rgba(201,168,76,0.4)}
+.pb.on{color:var(--void);border-color:transparent}
+.pb.on.pc{background:var(--gold-dim)}
+.pb.on.pg{background:#3D6FBF}
+.pb.on.po{background:#5C2BBF}
+.pb.on.pa{background:#0061A8}
+.model-row{
+  display:none;padding:8px 18px;
+  background:rgba(4,3,2,0.4);
+  border-bottom:1px solid rgba(201,168,76,0.08);
+  align-items:center;gap:10px;flex-shrink:0;
+}
+.model-row.on{display:flex}
+.model-row label{
+  font-family:var(--sans);font-size:7.5px;letter-spacing:0.15em;
+  text-transform:uppercase;color:rgba(240,235,224,0.2);white-space:nowrap;
+}
+.model-inp{
+  flex:1;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.1);
+  color:rgba(240,235,224,0.55);
+  font-family:var(--sans);font-size:10px;padding:5px 10px;outline:none;
+}
+.model-inp:focus{border-color:rgba(201,168,76,0.3)}
+
+/* messages */
+.c-msgs{
+  flex:1;overflow-y:auto;padding:22px 18px;
+  display:flex;flex-direction:column;gap:18px;
+  min-height:0;
+}
+.c-msgs::-webkit-scrollbar{width:2px}
+.c-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2)}
+.msg{display:flex;gap:10px;animation:msgIn 0.35s var(--ease)}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.u{flex-direction:row-reverse}
+.mav{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;margin-top:2px;
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  background:rgba(201,168,76,0.12);color:var(--gold);
+  font-family:var(--serif);border:1px solid rgba(201,168,76,0.2);
+}
+.msg.u .mav{background:rgba(240,235,224,0.08);color:rgba(240,235,224,0.5);border-color:rgba(240,235,224,0.1)}
+.mbody{max-width:84%}
+.bub{
+  padding:12px 16px;
+  font-family:var(--serif);font-size:14px;line-height:1.75;
+  color:rgba(240,235,224,0.85);
+  background:rgba(201,168,76,0.05);
+  border:1px solid rgba(201,168,76,0.14);
+  border-left:2px solid rgba(201,168,76,0.35);
+}
+.bub p{margin:0}
+.bub p+p{margin-top:8px}
+.bub strong{font-weight:600;color:var(--gold)}
+.bub em{font-style:italic;color:rgba(240,235,224,0.65)}
+.msg.u .bub{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-left:none;
+  border-right:2px solid rgba(255,255,255,0.15);
+  color:rgba(240,235,224,0.7);
+}
+/* system/notification message */
+.msg.sys .bub{
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.25);
+  border-left:none;
+  color:rgba(201,168,76,0.85);
+  font-family:var(--sans);font-size:11px;letter-spacing:0.06em;
+  text-align:center;
+}
+.bub.err{
+  background:rgba(176,48,48,0.1);
+  border-color:rgba(176,48,48,0.3);
+  color:#E07070;
+}
+.err-d{
+  font-family:var(--sans);font-size:10px;margin-top:7px;
+  padding:5px 10px;background:rgba(176,48,48,0.06);
+  border-left:2px solid rgba(176,48,48,0.4);word-break:break-all;
+  color:rgba(224,112,112,0.7);
+}
+.mmeta{display:flex;align-items:center;gap:6px;margin-top:5px;padding:0 2px}
+.mtime{font-family:var(--sans);font-size:7.5px;color:rgba(240,235,224,0.22)}
+.mprov{
+  font-family:var(--sans);font-size:6.5px;letter-spacing:0.1em;
+  text-transform:uppercase;padding:2px 6px;border-radius:2px;color:#fff;
+}
+.msg.u .mmeta{justify-content:flex-end}
+
+/* typing indicator */
+.typ-bub{
+  padding:14px 20px;display:inline-flex;gap:5px;align-items:center;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.12);
+}
+.typ-bub span{
+  width:5px;height:5px;border-radius:50%;background:var(--gold);
+  animation:tp 1.4s ease-in-out infinite;
+}
+.typ-bub span:nth-child(2){animation-delay:.18s}
+.typ-bub span:nth-child(3){animation-delay:.36s}
+@keyframes tp{0%,60%,100%{transform:translateY(0);opacity:0.4}30%{transform:translateY(-6px);opacity:1}}
+
+/* quick replies */
+.qrs{
+  display:flex;flex-wrap:wrap;gap:7px;
+  padding:12px 18px;
+  border-top:1px solid rgba(201,168,76,0.08);
+  background:rgba(4,3,2,0.3);
+  flex-shrink:0;
+}
+.qr{
+  font-family:var(--sans);font-size:8.5px;letter-spacing:0.08em;
+  border:1px solid rgba(201,168,76,0.2);
+  background:transparent;color:rgba(240,235,224,0.5);
+  padding:7px 14px;cursor:pointer;transition:all 0.2s;
+}
+.qr:hover{
+  background:rgba(201,168,76,0.1);color:var(--gold);
+  border-color:rgba(201,168,76,0.5);
+}
+
+/* input area */
+.c-inp-area{
+  padding:14px 18px;
+  border-top:1px solid var(--border);
+  background:rgba(4,3,2,0.5);
+  flex-shrink:0;
+}
+.c-inp-row{display:flex;gap:8px;align-items:center}
+.c-inp{
+  flex:1;padding:12px 15px;
+  border:1px solid rgba(201,168,76,0.15);
+  background:rgba(255,255,255,0.04);
+  font-family:var(--serif);font-size:14px;
+  color:var(--ivory);outline:none;
+  transition:border-color 0.3s;
+}
+.c-inp:focus{border-color:rgba(201,168,76,0.45)}
+.c-inp::placeholder{color:rgba(240,235,224,0.28);font-style:italic}
+.c-send{
+  width:44px;height:44px;flex-shrink:0;
+  background:var(--gold-dim);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;
+}
+.c-send:hover{background:var(--gold);box-shadow:0 0 18px var(--gold-glow)}
+.c-send svg{width:14px;height:14px;fill:none;stroke:var(--void);stroke-width:2}
+.c-foot{
+  padding:8px 18px;text-align:center;
+  font-family:var(--sans);font-size:7.5px;letter-spacing:0.16em;
+  text-transform:uppercase;color:rgba(201,168,76,0.3);
+  border-top:1px solid rgba(201,168,76,0.06);
+  flex-shrink:0;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media(max-width:900px){
+  nav{padding:20px 28px}
+  .nav-links,.nav-book{display:none}
+  .hero-inner{padding:0 28px 80px}
+  .sec{padding:90px 28px}
+  .rooms-grid{grid-template-columns:1fr}
+  .room-card:first-child{grid-column:span 1;aspect-ratio:4/3}
+  .exp-grid{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .split-txt{padding:64px 40px}
+  .footer-g{grid-template-columns:1fr 1fr}
+  .chat-pane{width:calc(100vw - 24px);right:12px;bottom:100px;max-height:75vh}
+  .chat-fab{right:14px;bottom:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────── -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-name">Grandure</span>
+    <span class="nav-logo-sub">Knightsbridge · London</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#">Rooms</a></li>
+    <li><a href="#">Spa</a></li>
+    <li><a href="#">Dining</a></li>
+    <li><a href="#">Experiences</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <button class="nav-book">Reserve</button>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────────────── -->
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-photo"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay-b"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Knightsbridge · London SW1</div>
+    <h1 class="hero-h1">
+      London's Most<br/>
+      <em>Considered</em>
+      Address
+    </h1>
+    <p class="hero-p">Grandure. A name that speaks before the doors open. Five floors of singular luxury in the heart of Knightsbridge — for those who know the difference.</p>
+    <div class="ctas">
+      <a href="#" class="btn-g">Reserve Your Stay</a>
+      <a href="#" class="btn-ghost">Discover Grandure</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Rooms ──────────────────────────────────────────── -->
+<section class="sec sec-dark">
+  <div class="eyebrow reveal">Suites &amp; Rooms</div>
+  <h2 class="sec-h2 reveal reveal-d1">A Legacy of<br/><em>Design &amp; Distinction</em></h2>
+  <p class="sec-p reveal reveal-d2">Five floors of singular spaces — from panoramic Presidential Suites to intimate Superior rooms with garden views. Every room an expression of considered craft.</p>
+  <div class="rule reveal reveal-d3"></div>
+  <div class="rooms-grid reveal reveal-d4">
+    <div class="room-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&q=80" alt="Presidential Suite" loading="lazy"/>
+      <div class="room-shine"></div>
+      <div class="room-info">
+        <div class="room-tag">Floor 5 · Panoramic Views</div>
+        <div class="room-name">Presidential Suite</div>
+        <div class="room-price">From £1,200 per night</div>
+      </div>
+      <div class="room-border"></div>
+    </div>
+    <div class="room-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&q=80" alt="Junior Suite" loading="lazy"/>
+      <div class="room-shine"></div>
+      <div class="room-info">
+        <div class="room-tag">Floor 4–5 · City &amp; Pool</div>
+        <div class="room-name">Junior Suite</div>
+        <div class="room-price">From £450 per night</div>
+      </div>
+      <div class="room-border"></div>
+    </div>
+    <div class="room-card" data-tilt>
+      <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&q=80" alt="Superior Room" loading="lazy"/>
+      <div class="room-shine"></div>
+      <div class="room-info">
+        <div class="room-tag">Floor 3–4 · Garden View</div>
+        <div class="room-name">Superior Room</div>
+        <div class="room-price">From £220 per night</div>
+      </div>
+      <div class="room-border"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Experiences ─────────────────────────────────────── -->
+<section class="sec sec-mid">
+  <div style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="eyebrow reveal" style="justify-content:center">The Grandure Life</div>
+    <h2 class="sec-h2 reveal reveal-d1" style="text-align:center">Elevate <em>Every Moment</em></h2>
+    <p class="sec-p reveal reveal-d2" style="margin:0 auto">From the spa to the rooftop, every experience at Grandure is crafted so that each day in London feels like the finest chapter of your stay.</p>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card reveal reveal-d1">
+      <div class="exp-num">01</div>
+      <div class="exp-ic">◈</div>
+      <div class="exp-h3">Grandure Spa</div>
+      <p class="exp-p">Eight specialist therapists. Nineteen treatments. Floor 2. Open daily from nine until eight.</p>
+      <a href="#" class="exp-a">Discover the Spa</a>
+    </div>
+    <div class="exp-card reveal reveal-d2">
+      <div class="exp-num">02</div>
+      <div class="exp-ic">♦</div>
+      <div class="exp-h3">Dining &amp; Bars</div>
+      <p class="exp-p">Grandure Restaurant, the Rooftop Lounge at sunset, the Pool Bar at midday. Each setting its own story.</p>
+      <a href="#" class="exp-a">View Restaurants</a>
+    </div>
+    <div class="exp-card reveal reveal-d3">
+      <div class="exp-num">03</div>
+      <div class="exp-ic">❋</div>
+      <div class="exp-h3">London Experiences</div>
+      <p class="exp-p">Private tours, curated excursions, and bespoke arrangements through your personal concierge.</p>
+      <a href="#" class="exp-a">Plan Your Stay</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Spa Split ────────────────────────────────────────── -->
+<div class="split reveal">
+  <div class="split-img">
+    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80" alt="Spa" loading="lazy"/>
+  </div>
+  <div class="split-txt">
+    <div class="eyebrow">Wellness</div>
+    <h2 class="sec-h2">A Sanctuary of<br/><em>Quiet Restoration</em></h2>
+    <div class="rule"></div>
+    <p class="sec-p">Nineteen treatments. Eight therapists. One floor entirely devoted to stillness. The Grandure Spa — where recovery is ritual.</p>
+    <a href="#" class="btn-ghost">Explore Treatments</a>
+  </div>
+</div>
+
+<!-- ── Dining Split ─────────────────────────────────────── -->
+<div class="split reveal" style="direction:rtl">
+  <div class="split-img" style="direction:ltr">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Dining" loading="lazy"/>
+  </div>
+  <div class="split-txt reveal" style="background:var(--charcoal);direction:ltr;border-left:none;border-right:1px solid var(--border)">
+    <div class="eyebrow">Dining</div>
+    <h2 class="sec-h2">The Art of<br/><em>The Table</em></h2>
+    <div class="rule"></div>
+    <p class="sec-p">Five distinct settings. Fifty-seven menu items. From the Rooftop Lounge at dusk to Grandure Restaurant at dinner.</p>
+    <a href="#" class="btn-g" style="margin-top:44px;display:inline-block">View Menus</a>
+  </div>
+</div>
+
+<!-- ── Quote ──────────────────────────────────────────── -->
+<section class="quote">
+  <span class="q-mark reveal">"</span>
+  <p class="q-text reveal reveal-d1">At Grandure, every stay is a chapter you write yourself. We simply ensure the setting is worthy of the story.</p>
+  <div class="q-attr reveal reveal-d2">Grandure Hotel · Knightsbridge · London SW1</div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-g">
+    <div>
+      <div class="f-brand">Grandure</div>
+      <p class="f-tag">A luxury address in the heart of<br/>Knightsbridge · London SW1</p>
+    </div>
+    <div>
+      <div class="f-head">Stay</div>
+      <ul class="f-links">
+        <li><a href="#">Presidential Suite</a></li>
+        <li><a href="#">Junior Suite</a></li>
+        <li><a href="#">Superior Room</a></li>
+        <li><a href="#">Standard Room</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-head">Experience</div>
+      <ul class="f-links">
+        <li><a href="#">Grandure Spa</a></li>
+        <li><a href="#">Grandure Restaurant</a></li>
+        <li><a href="#">Rooftop Lounge</a></li>
+        <li><a href="#">Pool Bar &amp; Grill</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-head">Contact</div>
+      <ul class="f-links">
+        <li><a href="#">concierge@grandure.com</a></li>
+        <li><a href="#">+44 (0) 20 0000 0000</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span class="f-copy">© Grandure Hotel 2026. All rights reserved.</span>
+    <span class="f-badge">Celestia Cruises Shore Partner</span>
+  </div>
+</footer>
+
+<!-- ── Concierge FAB ───────────────────────────────────── -->
+<button class="chat-fab" id="fab" aria-label="Open concierge">
+  <div class="fab-pulse"></div>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <span class="fab-lbl">Concierge</span>
+</button>
+
+<!-- ── Chat Pane ──────────────────────────────────────── -->
+<div class="chat-pane" id="pane">
+  <div class="c-head">
+    <div class="c-head-l">
+      <div class="c-av">G</div>
+      <div>
+        <div class="c-name">Grandure Concierge</div>
+        <div class="c-status"><span class="c-dot"></span><span id="cstatus">Available now</span></div>
+      </div>
+    </div>
+    <div class="c-btns">
+      <button class="c-btn" id="provBtn" title="Switch AI model">⚡</button>
+      <button class="c-btn" id="resetBtn" title="New conversation">↺</button>
+      <button class="c-btn" id="closeBtn" title="Close">✕</button>
+    </div>
+  </div>
+
+  <div class="prov-bar" id="provBar">
+    <span class="prov-lbl">Model</span>
+    <button class="pb pc"    data-p="claude"     data-m="claude-opus-4-5">Claude</button>
+    <button class="pb pg"    data-p="gemini"     data-m="gemini-2.0-flash">Gemini</button>
+    <button class="pb po on" data-p="openrouter" data-m="google/gemma-3-27b-it">Gemma</button>
+    <button class="pb pa"    data-p="azure"      data-m="gpt-4o">Azure</button>
+  </div>
+  <div class="model-row" id="modelRow">
+    <label>Model override</label>
+    <input class="model-inp" id="modelInp" placeholder="e.g. claude-opus-4-5"/>
+  </div>
+
+  <div class="c-msgs" id="msgs"></div>
+  <div class="qrs" id="qrs"></div>
+
+  <div class="c-inp-area">
+    <div class="c-inp-row">
+      <input class="c-inp" id="cinp" placeholder="Write to your concierge…" autocomplete="off"/>
+      <button class="c-send" id="sendBtn" aria-label="Send">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="c-foot" id="cfoot">Claude · Grandure Hotel · Knightsbridge</div>
+</div>
+
+<script>
+/* ── Hero Canvas — Constellation ────────────────────── */
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+  const NODE_COUNT = 55, LINK_DIST = 160;
+  const GOLD = 'rgba(201,168,76,';
+
+  function resize(){
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  function Node(){
+    this.x  = Math.random()*W;
+    this.y  = Math.random()*H;
+    this.vx = (Math.random()-0.5)*0.22;
+    this.vy = (Math.random()-0.5)*0.22;
+    this.r  = Math.random()*1.4+0.5;
+  }
+  function init(){
+    resize();
+    nodes = Array.from({length:NODE_COUNT},()=>new Node());
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<nodes.length;i++){
+      const a = nodes[i];
+      a.x += a.vx; a.y += a.vy;
+      if(a.x<0||a.x>W) a.vx*=-1;
+      if(a.y<0||a.y>H) a.vy*=-1;
+      for(let j=i+1;j<nodes.length;j++){
+        const b=nodes[j];
+        const d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<LINK_DIST){
+          const op=(1-d/LINK_DIST)*0.35;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=GOLD+op+')';
+          ctx.lineWidth=0.5;ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+      ctx.fillStyle=GOLD+'0.6)';ctx.fill();
+    }
+    requestAnimationFrame(tick);
+  }
+  window.addEventListener('resize',()=>{resize();});
+  init(); tick();
+})();
+
+/* ── Scroll — Nav ────────────────────────────────────── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',scrollY>60);
+},{passive:true});
+
+/* ── Scroll Reveal ───────────────────────────────────── */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ── 3D Card Tilt ────────────────────────────────────── */
+document.querySelectorAll('[data-tilt]').forEach(card=>{
+  const shine = card.querySelector('.room-shine');
+  card.addEventListener('mousemove',e=>{
+    const r   = card.getBoundingClientRect();
+    const x   = (e.clientX-r.left)/r.width  - 0.5;
+    const y   = (e.clientY-r.top) /r.height - 0.5;
+    card.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg) scale3d(1.02,1.02,1.02)`;
+    card.style.transition='transform 0.08s ease,box-shadow 0.08s ease';
+    if(shine){
+      shine.style.background=`radial-gradient(circle at ${(x+0.5)*100}% ${(y+0.5)*100}%,rgba(201,168,76,0.18),transparent 60%)`;
+    }
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';
+    card.style.transition='transform 0.55s cubic-bezier(0.22,1,0.36,1),box-shadow 0.55s ease';
+    if(shine) shine.style.background='';
+  });
+});
+
+/* ── Chat Logic ──────────────────────────────────────── */
+const BACKEND    = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  ? "http://localhost:8000"
+  : "https://grandure-api.onrender.com";  /* ← replace with your Render URL after deploy */
+const PROV_NAMES = {claude:"Claude",gemini:"Gemini",openrouter:"Gemma",azure:"Azure GPT-4o"};
+const PROV_CSS   = {claude:"pc",gemini:"pg",openrouter:"po",azure:"pa"};
+const EMAIL_RE   = /\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/;
+
+let history=[], isOpen=false, isTyping=false;
+let curProv="openrouter", curModel="google/gemma-3-27b-it";
+let guestEmail=null, guestName=null, emailSent=false, lastSummary=null;
+
+/* ── Controls ────────────────────────────────────────── */
+document.getElementById('fab').addEventListener('click',()=>{
+  isOpen=!isOpen;
+  document.getElementById('pane').classList.toggle('open',isOpen);
+  if(isOpen && history.length===0) initChat();
+});
+document.getElementById('closeBtn').addEventListener('click',()=>{
+  isOpen=false; document.getElementById('pane').classList.remove('open');
+});
+document.getElementById('provBtn').addEventListener('click',()=>{
+  document.getElementById('provBar').classList.toggle('on');
+  document.getElementById('modelRow').classList.toggle('on');
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  history=[]; guestEmail=null; guestName=null; emailSent=false; lastSummary=null;
+  document.getElementById('msgs').innerHTML='';
+  clearQR(); initChat();
+});
+document.querySelectorAll('.pb').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.pb').forEach(x=>x.classList.remove('on','pc','pg','po','pa'));
+    b.classList.add('on',PROV_CSS[b.dataset.p]);
+    curProv  = b.dataset.p;
+    curModel = document.getElementById('modelInp').value.trim() || b.dataset.m;
+    document.getElementById('modelInp').placeholder = b.dataset.m;
+    document.getElementById('cfoot').textContent = PROV_NAMES[curProv]+' · Grandure Hotel';
+    setStatus('Switched to '+PROV_NAMES[curProv]);
+    setTimeout(()=>setStatus('Available now'),2000);
+  });
+});
+document.getElementById('modelInp').addEventListener('change',e=>{
+  if(e.target.value.trim()) curModel=e.target.value.trim();
+});
+
+/* ── Init ─────────────────────────────────────────────── */
+function initChat(){
+  addMsg('agent','Welcome to Grandure. How may I begin arranging your stay?');
+  setQR(['Book a suite','Spa treatments','Dining tonight','June 10, 3 nights, 2 guests, anniversary']);
+}
+
+/* ── Send ─────────────────────────────────────────────── */
+async function send(text){
+  if(!text.trim()||isTyping) return;
+  clearQR();
+  addMsg('user',text);
+  document.getElementById('cinp').value='';
+
+  /* capture email from guest message; if we already have a summary, send now */
+  const em=text.match(EMAIL_RE);
+  if(em){
+    guestEmail=em[0];
+    if(lastSummary && !emailSent){ emailSent=true; await sendSummaryEmail(guestEmail,lastSummary); }
+  }
+
+  history.push({role:'user',content:text});
+  showTyping();
+  try{
+    const model=document.getElementById('modelInp').value.trim()||curModel;
+    const r=await fetch(`${BACKEND}/api/chat`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:history.slice(-8),provider:curProv,model:model||undefined}),
+    });
+    const d=await r.json();
+    hideTyping();
+    if(!r.ok){showErr('Could not get a response.',d.detail||JSON.stringify(d).slice(0,200));return;}
+    const reply=d.reply||'No response received.';
+    addMsg('agent',reply,d.provider);
+    history.push({role:'assistant',content:reply});
+
+    /* store summary; send immediately if we already have the guest email */
+    if(/Room:/i.test(reply)){
+      lastSummary=reply;
+      if(guestEmail && !emailSent){ emailSent=true; await sendSummaryEmail(guestEmail,lastSummary); }
+    }
+
+    /* quick replies generated by the LLM */
+    setQR(d.quick_replies||[]);
+  }catch(e){
+    hideTyping();
+    showErr('Connection error.',e.message+' — is the backend running on port 8000?');
+  }
+}
+
+/* ── Email send ──────────────────────────────────────── */
+async function sendSummaryEmail(to, summary){
+  try{
+    const r=await fetch(`${BACKEND}/api/send-email`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({to, summary, guest_name: guestName}),
+    });
+    if(r.ok){
+      addSys(`Booking summary sent to ${to}`);
+    } else {
+      const d=await r.json().catch(()=>({}));
+      addSys(`Email could not be sent — ${d.detail||'check backend .env credentials'}`);
+    }
+  }catch(e){
+    addSys(`Email error: ${e.message}`);
+  }
+}
+
+
+/* ── Renderers ────────────────────────────────────────── */
+function md(raw){
+  let s=raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  s=s.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/\*(.*?)\*/g,'<em>$1</em>');
+  return s.split(/\n{2,}/).map(p=>`<p>${p.replace(/\n/g,'<br/>')}</p>`).join('');
+}
+function esc(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br/>');
+}
+
+/* ── Message helpers ─────────────────────────────────── */
+function addMsg(role,text,prov){
+  const msgs=document.getElementById('msgs');
+  const time=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  const d=document.createElement('div');
+  d.className=`msg ${role==='user'?'u':''}`;
+  const meta=`<span class="mtime">${time}</span>`;
+  const body=role==='user'?`<p>${esc(text)}</p>`:md(text);
+  d.innerHTML=`<div class="mav">${role==='user'?'◎':'G'}</div><div class="mbody"><div class="bub">${body}</div><div class="mmeta">${meta}</div></div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function addSys(text){
+  const msgs=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg sys';
+  d.innerHTML=`<div class="mbody" style="width:100%"><div class="bub">✦ ${esc(text)}</div></div>`;
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function showErr(f,detail){
+  const msgs=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg';
+  d.innerHTML=`<div class="mav">G</div><div class="mbody"><div class="bub err">${esc(f)}${detail?`<div class="err-d">${esc(detail)}</div>`:''}</div></div>`;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+function showTyping(){
+  isTyping=true;
+  const msgs=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg';d.id='typ';
+  d.innerHTML='<div class="mav">G</div><div class="mbody"><div class="typ-bub"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){isTyping=false;const e=document.getElementById('typ');if(e)e.remove();}
+function setQR(opts){
+  if(!opts||!opts.length){clearQR();return;}
+  document.getElementById('qrs').innerHTML=opts.map(o=>`<button class="qr" onclick="send('${o.replace(/'/g,"&#39;")}')">${o}</button>`).join('');
+}
+function clearQR(){document.getElementById('qrs').innerHTML='';}
+function setStatus(t){document.getElementById('cstatus').textContent=t;}
+
+document.getElementById('sendBtn').addEventListener('click',()=>send(document.getElementById('cinp').value));
+document.getElementById('cinp').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send(e.target.value);}
+});
+</script>
+</body>
+</html>

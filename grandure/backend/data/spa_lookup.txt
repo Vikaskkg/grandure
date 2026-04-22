@@ -1,0 +1,324 @@
+GRANDURE SPA THERAPIST AVAILABILITY JUNE 2026
+PEAK DAYS: 6 7 13 14 19 20 21 26 27 28
+
+DATE 01 Jun 2026 Mon
+  Sofia F Massage/Body AVAILABLE 11:00 12:00 13:00 14:00 16:00 17:00 19:00
+  Amir M Massage/Ritual AVAILABLE 09:00 10:00 12:00 14:00 16:00 17:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 09:00 15:00 16:00 17:00 19:00
+  James M Massage/Body AVAILABLE 11:00 12:00 13:00 14:00 15:00 16:00 17:00 19:00
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage AVAILABLE 10:00 12:00 13:00 14:00 15:00 17:00 18:00
+  Fatima F Facial/Nails/Body AVAILABLE 10:00 13:00 15:00 17:00 18:00 19:00
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 11:00 12:00 14:00 15:00 18:00 19:00
+
+DATE 02 Jun 2026 Tue
+  Sofia F Massage/Body AVAILABLE 09:00 10:00 12:00 13:00 15:00 16:00 17:00
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 09:00 10:00 11:00 13:00 14:00 15:00 17:00 19:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage AVAILABLE 09:00 10:00 11:00 12:00 13:00 14:00 16:00 17:00 18:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 03 Jun 2026 Wed
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual AVAILABLE 11:00 13:00 14:00 17:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 10:00 11:00 12:00 14:00 15:00 18:00 19:00
+  James M Massage/Body AVAILABLE 09:00 11:00 16:00 17:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 11:00 14:00 15:00 19:00
+  Lucas M Massage AVAILABLE 09:00 10:00 12:00 13:00 15:00 16:00 18:00
+  Fatima F Facial/Nails/Body AVAILABLE 12:00 13:00 14:00 15:00 16:00 17:00
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 12:00 14:00 15:00 17:00
+
+DATE 04 Jun 2026 Thu
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 09:00 11:00 12:00 14:00 15:00
+  James M Massage/Body AVAILABLE 14:00 16:00 18:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 10:00 11:00 12:00 13:00 16:00 17:00 19:00
+  Lucas M Massage AVAILABLE 11:00 13:00 14:00 15:00 16:00 17:00 18:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 05 Jun 2026 Fri
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 12:00 13:00 14:00 17:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 11:00 12:00 16:00 17:00 19:00
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body AVAILABLE 10:00 13:00 14:00 15:00 16:00 19:00
+  Kenji M Massage/Ritual AVAILABLE 09:00 12:00 15:00 16:00 17:00 18:00 19:00
+
+DATE 06 Jun 2026 Sat PEAK
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual AVAILABLE 10:00 11:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 09:00 11:00 13:00 15:00 17:00 18:00 19:00
+  James M Massage/Body AVAILABLE 11:00 12:00 13:00 15:00 18:00
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage AVAILABLE 10:00 14:00 15:00 17:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 07 Jun 2026 Sun PEAK
+  Sofia F Massage/Body AVAILABLE 09:00 10:00 16:00 19:00
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 19:00
+  James M Massage/Body AVAILABLE 09:00 12:00 15:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 10:00 13:00 15:00 16:00 18:00
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 12:00 13:00 16:00 17:00 19:00
+
+DATE 08 Jun 2026 Mon
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body AVAILABLE 09:00 10:00 11:00 12:00 14:00 15:00 18:00 19:00
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 10:00 12:00 15:00 16:00
+
+DATE 09 Jun 2026 Tue
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual AVAILABLE 09:00 10:00 14:00 15:00 16:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 09:00 10:00 11:00 12:00 13:00 15:00 16:00 18:00 19:00
+  James M Massage/Body AVAILABLE 13:00 14:00 15:00 17:00
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage AVAILABLE 09:00 11:00 13:00 14:00 18:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 12:00 16:00 18:00 19:00
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 10 Jun 2026 Wed
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 12:00 13:00 14:00 16:00 17:00 19:00
+  Amir M Massage/Ritual AVAILABLE 09:00 10:00 14:00 15:00 16:00
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body AVAILABLE 11:00 12:00 13:00 15:00 17:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 10:00 11:00 15:00 17:00 19:00
+  Lucas M Massage AVAILABLE 11:00 13:00 15:00 17:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 12:00 13:00 14:00 16:00 18:00 19:00
+  Kenji M Massage/Ritual AVAILABLE 11:00 15:00 16:00 17:00
+
+DATE 11 Jun 2026 Thu
+  Sofia F Massage/Body AVAILABLE 09:00 10:00 11:00 12:00 14:00 16:00 17:00 18:00
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 11:00 12:00 16:00 18:00 19:00
+  Lucas M Massage AVAILABLE 11:00 13:00 15:00 18:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 12:00 13:00 14:00 16:00 17:00
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 12 Jun 2026 Fri
+  Sofia F Massage/Body AVAILABLE 13:00 15:00 16:00 17:00 18:00 19:00
+  Amir M Massage/Ritual AVAILABLE 09:00 12:00 13:00 14:00 16:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 09:00 11:00 14:00 15:00 18:00 19:00
+  James M Massage/Body AVAILABLE 11:00 12:00 13:00 15:00 16:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 14:00 16:00 17:00 18:00
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 13:00 15:00 16:00 18:00
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 11:00 13:00 15:00 16:00 18:00
+
+DATE 13 Jun 2026 Sat PEAK
+  Sofia F Massage/Body AVAILABLE 12:00 14:00 16:00 17:00 19:00
+  Amir M Massage/Ritual AVAILABLE 11:00 13:00 14:00 16:00 17:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 09:00 13:00 14:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 10:00 12:00 13:00 14:00 15:00
+  Lucas M Massage AVAILABLE 12:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 12:00 14:00 15:00 17:00
+
+DATE 14 Jun 2026 Sun PEAK
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 10:00 11:00 13:00 15:00 16:00 17:00 18:00 19:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 12:00 13:00 15:00 18:00
+
+DATE 15 Jun 2026 Mon
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual AVAILABLE 10:00 11:00 13:00 15:00 16:00 19:00
+  Priya F Facial/Nails AVAILABLE 10:00 12:00 13:00 16:00 17:00 18:00 19:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 11:00 13:00 14:00 19:00
+  Lucas M Massage AVAILABLE 09:00 11:00 12:00 14:00 16:00 17:00 18:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 10:00 12:00 17:00 18:00
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 16 Jun 2026 Tue
+  Sofia F Massage/Body AVAILABLE 09:00 10:00 11:00 16:00 17:00
+  Amir M Massage/Ritual AVAILABLE 09:00 10:00 12:00 13:00 14:00 15:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 09:00 12:00 16:00 17:00 18:00
+  James M Massage/Body AVAILABLE 10:00 12:00 14:00 17:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 12:00 13:00 14:00 16:00 18:00
+  Lucas M Massage AVAILABLE 09:00 10:00 12:00 14:00 16:00 18:00 19:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 11:00 13:00 14:00
+
+DATE 17 Jun 2026 Wed
+  Sofia F Massage/Body AVAILABLE 09:00 10:00 11:00 12:00 14:00 15:00 16:00 19:00
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 11:00 12:00 13:00 15:00 16:00 17:00 18:00 19:00
+  James M Massage/Body AVAILABLE 11:00 12:00 13:00 15:00 17:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 11:00 12:00 19:00
+  Lucas M Massage AVAILABLE 11:00 12:00 14:00 15:00 16:00 17:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 10:00 13:00 16:00 17:00 19:00
+
+DATE 18 Jun 2026 Thu
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 13:00 14:00 15:00 17:00 19:00
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 12:00 13:00 15:00 17:00 18:00
+  James M Massage/Body AVAILABLE 09:00 10:00 12:00 15:00 17:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 12:00 13:00 14:00 16:00 17:00 19:00
+  Lucas M Massage AVAILABLE 09:00 10:00 11:00 12:00 13:00 14:00 17:00 18:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 11:00 14:00 15:00 17:00
+  Kenji M Massage/Ritual AVAILABLE 10:00 12:00 13:00 17:00 18:00
+
+DATE 19 Jun 2026 Fri PEAK
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 12:00 13:00 16:00
+  Amir M Massage/Ritual AVAILABLE 10:00 11:00 15:00 17:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 11:00 12:00 13:00 15:00 16:00 17:00 19:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 19:00
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body AVAILABLE 11:00 15:00 16:00 18:00 19:00
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 11:00 13:00 16:00 17:00
+
+DATE 20 Jun 2026 Sat PEAK
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 09:00 10:00 11:00 12:00 13:00 16:00 17:00 18:00
+  James M Massage/Body AVAILABLE 11:00 12:00 13:00 14:00 16:00 17:00 18:00
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 11:00 12:00 13:00 15:00 16:00 17:00 18:00
+
+DATE 21 Jun 2026 Sun PEAK
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 11:00 12:00 15:00 16:00 18:00 19:00
+  Lucas M Massage AVAILABLE 11:00 12:00 14:00 15:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 11:00 12:00 13:00 16:00
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 22 Jun 2026 Mon
+  Sofia F Massage/Body AVAILABLE 10:00 11:00 13:00 18:00
+  Amir M Massage/Ritual AVAILABLE 10:00 12:00 13:00 15:00 18:00 19:00
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body AVAILABLE 09:00 10:00 15:00 16:00 17:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 14:00 15:00 16:00 17:00 19:00
+  Lucas M Massage AVAILABLE 09:00 10:00 12:00 13:00 14:00 15:00 16:00 17:00 19:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 10:00 11:00 12:00 13:00 14:00 16:00 18:00 19:00
+
+DATE 23 Jun 2026 Tue
+  Sofia F Massage/Body AVAILABLE 11:00 12:00 13:00 14:00 16:00 17:00 19:00
+  Amir M Massage/Ritual AVAILABLE 09:00 10:00 13:00 17:00
+  Priya F Facial/Nails AVAILABLE 09:00 10:00 11:00 12:00 15:00 17:00 18:00
+  James M Massage/Body AVAILABLE 10:00 11:00 14:00 15:00 16:00 17:00 18:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 13:00 16:00 18:00 19:00
+  Lucas M Massage AVAILABLE 09:00 10:00 11:00 14:00 18:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 14:00 15:00 16:00 17:00 18:00 19:00
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 24 Jun 2026 Wed
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 13:00 15:00 16:00 18:00 19:00
+  Amir M Massage/Ritual AVAILABLE 11:00 14:00 15:00 16:00 18:00 19:00
+  Priya F Facial/Nails AVAILABLE 10:00 13:00 14:00 15:00 17:00 18:00 19:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 11:00 12:00 15:00 18:00 19:00
+  Lucas M Massage AVAILABLE 09:00 11:00 12:00 13:00 14:00 15:00 16:00 18:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 11:00 13:00 15:00
+  Kenji M Massage/Ritual DAYOFF
+
+DATE 25 Jun 2026 Thu
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 13:00 14:00 15:00 17:00 18:00 19:00
+  Amir M Massage/Ritual AVAILABLE 10:00 11:00 12:00 16:00 19:00
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body AVAILABLE 09:00 10:00 11:00 12:00 16:00 18:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 11:00 12:00 14:00 15:00 16:00
+  Lucas M Massage AVAILABLE 09:00 10:00 12:00 15:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 11:00 13:00 16:00 17:00 19:00
+  Kenji M Massage/Ritual AVAILABLE 10:00 13:00 15:00 16:00 17:00 18:00 19:00
+
+DATE 26 Jun 2026 Fri PEAK
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 12:00 13:00 15:00 17:00 18:00 19:00
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 11:00 14:00 15:00 16:00 17:00 19:00
+  Lucas M Massage AVAILABLE 11:00 12:00 13:00 14:00 15:00 16:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 10:00 11:00 12:00 13:00 15:00 16:00 17:00 18:00 19:00
+  Kenji M Massage/Ritual AVAILABLE 09:00 10:00 11:00 12:00 14:00 15:00 16:00 17:00 18:00
+
+DATE 27 Jun 2026 Sat PEAK
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual DAYOFF
+  Priya F Facial/Nails AVAILABLE 09:00 11:00 13:00 14:00
+  James M Massage/Body AVAILABLE 10:00 11:00 12:00 14:00 16:00 17:00 18:00 19:00
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage AVAILABLE 16:00 17:00 18:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 10:00 11:00 12:00 13:00 14:00 16:00 18:00
+  Kenji M Massage/Ritual AVAILABLE 11:00 12:00 16:00
+
+DATE 28 Jun 2026 Sun PEAK
+  Sofia F Massage/Body DAYOFF
+  Amir M Massage/Ritual AVAILABLE 09:00 12:00 14:00 15:00 16:00 17:00 18:00
+  Priya F Facial/Nails AVAILABLE 09:00 10:00 11:00 12:00 15:00 17:00
+  James M Massage/Body AVAILABLE 09:00 13:00 14:00 15:00 19:00
+  MeiLin F Facial/Ritual/Body AVAILABLE 10:00 12:00 13:00 14:00 16:00
+  Lucas M Massage DAYOFF
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 10:00 11:00 13:00 14:00 15:00 18:00
+
+DATE 29 Jun 2026 Mon
+  Sofia F Massage/Body AVAILABLE 10:00 11:00 12:00 13:00 14:00 18:00
+  Amir M Massage/Ritual AVAILABLE 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00
+  Priya F Facial/Nails DAYOFF
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body AVAILABLE 09:00 10:00 11:00 13:00 14:00 16:00 19:00
+  Lucas M Massage AVAILABLE 13:00 14:00 15:00 16:00 17:00
+  Fatima F Facial/Nails/Body DAYOFF
+  Kenji M Massage/Ritual AVAILABLE 11:00 12:00 14:00 17:00
+
+DATE 30 Jun 2026 Tue
+  Sofia F Massage/Body AVAILABLE 09:00 11:00 12:00 13:00 15:00 17:00 19:00
+  Amir M Massage/Ritual AVAILABLE 12:00 13:00 14:00 15:00 16:00 19:00
+  Priya F Facial/Nails AVAILABLE 12:00 13:00 14:00 16:00 17:00
+  James M Massage/Body DAYOFF
+  MeiLin F Facial/Ritual/Body DAYOFF
+  Lucas M Massage AVAILABLE 09:00 13:00 14:00 15:00 17:00 19:00
+  Fatima F Facial/Nails/Body AVAILABLE 09:00 11:00 12:00 13:00 15:00
+  Kenji M Massage/Ritual AVAILABLE 11:00 13:00 17:00 18:00
+
+SPA TREATMENTS PRICE REFERENCE
+
+Aromatherapy Massage | Massage | 75min | GBP125 weekday | GBP138 weekend | GBP150 peak | Sofia MeiLin
+Swedish Massage | Massage | 60min | GBP95 weekday | GBP105 weekend | GBP115 peak | Sofia Lucas
+Deep Tissue Massage | Massage | 60min | GBP115 weekday | GBP127 weekend | GBP138 peak | James Lucas Sofia
+Hot Stone Massage | Massage | 90min | GBP145 weekday | GBP160 weekend | GBP174 peak | Amir Kenji
+Sports Recovery Massage | Massage | 60min | GBP120 weekday | GBP132 weekend | GBP144 peak | James Lucas
+Dual Suite Massage | Massage | 90min | GBP220 weekday | GBP242 weekend | GBP264 peak | AnyTwo-Massage
+Classic Facial | Facial | 60min | GBP85 weekday | GBP94 weekend | GBP102 peak | Priya Fatima
+Anti-Ageing Facial | Facial | 75min | GBP130 weekday | GBP143 weekend | GBP156 peak | Priya Fatima MeiLin
+Hydrating Facial | Facial | 60min | GBP95 weekday | GBP105 weekend | GBP114 peak | Priya Fatima
+Brightening Facial | Facial | 60min | GBP110 weekday | GBP121 weekend | GBP132 peak | Priya MeiLin
+Body Scrub and Wrap | Body | 90min | GBP155 weekday | GBP171 weekend | GBP186 peak | Sofia Fatima MeiLin
+Hydrotherapy Bath | Body | 45min | GBP75 weekday | GBP83 weekend | GBP90 peak | Sofia James
+Detox Body Wrap | Body | 75min | GBP130 weekday | GBP143 weekend | GBP156 peak | MeiLin Fatima
+Classic Manicure | Nails | 45min | GBP55 weekday | GBP61 weekend | GBP66 peak | Priya Fatima
+Classic Pedicure | Nails | 60min | GBP65 weekday | GBP72 weekend | GBP78 peak | Priya Fatima
+Luxury Manicure Pedicure | Nails | 90min | GBP110 weekday | GBP121 weekend | GBP132 peak | Priya Fatima
+Hammam Ritual | Ritual | 120min | GBP180 weekday | GBP198 weekend | GBP216 peak | Amir Kenji
+Detox Ritual | Ritual | 120min | GBP175 weekday | GBP193 weekend | GBP210 peak | MeiLin Kenji
+Signature Azure Journey | Ritual | 150min | GBP220 weekday | GBP242 weekend | GBP264 peak | MeiLin-only
