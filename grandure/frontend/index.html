@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Grandure Hotel · Knightsbridge · London</title>
+<title>Grandure Hotel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -637,6 +637,17 @@ footer{
 }
 .c-send:hover{background:var(--gold);box-shadow:0 0 18px var(--gold-glow)}
 .c-send svg{width:14px;height:14px;fill:none;stroke:var(--void);stroke-width:2}
+.c-mic{
+  width:44px;height:44px;flex-shrink:0;
+  background:transparent;border:1px solid rgba(201,168,76,0.2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;
+}
+.c-mic:hover{border-color:var(--gold);background:rgba(201,168,76,0.08)}
+.c-mic.listening{border-color:var(--gold);background:rgba(201,168,76,0.18);animation:micpulse 1s ease-in-out infinite}
+.c-mic svg{width:14px;height:14px;fill:none;stroke:rgba(201,168,76,0.7);stroke-width:1.8;stroke-linecap:round}
+.c-mic.listening svg{stroke:var(--gold)}
+@keyframes micpulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.3)}50%{box-shadow:0 0 0 6px rgba(201,168,76,0)}}
 .c-foot{
   padding:8px 18px;text-align:center;
   font-family:var(--sans);font-size:7.5px;letter-spacing:0.16em;
@@ -668,16 +679,16 @@ footer{
 <nav id="nav">
   <a class="nav-logo" href="#">
     <span class="nav-logo-name">Grandure</span>
-    <span class="nav-logo-sub">Knightsbridge · London</span>
+    <span class="nav-logo-sub">A Luxury Address</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#">Rooms</a></li>
-    <li><a href="#">Spa</a></li>
-    <li><a href="#">Dining</a></li>
-    <li><a href="#">Experiences</a></li>
-    <li><a href="#">About</a></li>
+    <li><a href="explore.html">Explore</a></li>
+    <li><a href="explore.html">Rooms</a></li>
+    <li><a href="explore.html#spa">Spa</a></li>
+    <li><a href="explore.html#dining">Dining</a></li>
+    <li><a href="explore.html">Experiences</a></li>
   </ul>
-  <button class="nav-book">Reserve</button>
+  <button class="nav-book" onclick="location.href='explore.html'">Reserve</button>
 </nav>
 
 <!-- ── Hero ───────────────────────────────────────────── -->
@@ -687,16 +698,16 @@ footer{
   <div class="hero-overlay"></div>
   <div class="hero-overlay-b"></div>
   <div class="hero-inner">
-    <div class="hero-tag">Knightsbridge · London SW1</div>
+    <div class="hero-tag">Grandure Hotel</div>
     <h1 class="hero-h1">
-      London's Most<br/>
+      The World's Most<br/>
       <em>Considered</em>
       Address
     </h1>
-    <p class="hero-p">Grandure. A name that speaks before the doors open. Five floors of singular luxury in the heart of Knightsbridge — for those who know the difference.</p>
+    <p class="hero-p">Grandure. A name that speaks before the doors open. Five floors of singular luxury, crafted for those who know the difference.</p>
     <div class="ctas">
-      <a href="#" class="btn-g">Reserve Your Stay</a>
-      <a href="#" class="btn-ghost">Discover Grandure</a>
+      <button class="btn-g" onclick="document.getElementById('fab').click()">Reserve Your Stay</button>
+      <a href="explore.html" class="btn-ghost">Explore the Hotel</a>
     </div>
   </div>
 </section>
@@ -708,7 +719,7 @@ footer{
   <p class="sec-p reveal reveal-d2">Five floors of singular spaces — from panoramic Presidential Suites to intimate Superior rooms with garden views. Every room an expression of considered craft.</p>
   <div class="rule reveal reveal-d3"></div>
   <div class="rooms-grid reveal reveal-d4">
-    <div class="room-card" data-tilt>
+    <a class="room-card" data-tilt href="explore.html" style="text-decoration:none;display:block">
       <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&q=80" alt="Presidential Suite" loading="lazy"/>
       <div class="room-shine"></div>
       <div class="room-info">
@@ -717,8 +728,8 @@ footer{
         <div class="room-price">From £1,200 per night</div>
       </div>
       <div class="room-border"></div>
-    </div>
-    <div class="room-card" data-tilt>
+    </a>
+    <a class="room-card" data-tilt href="explore.html#floor4" style="text-decoration:none;display:block">
       <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&q=80" alt="Junior Suite" loading="lazy"/>
       <div class="room-shine"></div>
       <div class="room-info">
@@ -727,8 +738,8 @@ footer{
         <div class="room-price">From £450 per night</div>
       </div>
       <div class="room-border"></div>
-    </div>
-    <div class="room-card" data-tilt>
+    </a>
+    <a class="room-card" data-tilt href="explore.html#floor3" style="text-decoration:none;display:block">
       <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&q=80" alt="Superior Room" loading="lazy"/>
       <div class="room-shine"></div>
       <div class="room-info">
@@ -737,7 +748,7 @@ footer{
         <div class="room-price">From £220 per night</div>
       </div>
       <div class="room-border"></div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -746,7 +757,7 @@ footer{
   <div style="text-align:center;max-width:600px;margin:0 auto">
     <div class="eyebrow reveal" style="justify-content:center">The Grandure Life</div>
     <h2 class="sec-h2 reveal reveal-d1" style="text-align:center">Elevate <em>Every Moment</em></h2>
-    <p class="sec-p reveal reveal-d2" style="margin:0 auto">From the spa to the rooftop, every experience at Grandure is crafted so that each day in London feels like the finest chapter of your stay.</p>
+    <p class="sec-p reveal reveal-d2" style="margin:0 auto">From the spa to the rooftop, every experience at Grandure is crafted so that each moment feels like the finest chapter of your stay.</p>
   </div>
   <div class="exp-grid">
     <div class="exp-card reveal reveal-d1">
@@ -754,21 +765,21 @@ footer{
       <div class="exp-ic">◈</div>
       <div class="exp-h3">Grandure Spa</div>
       <p class="exp-p">Eight specialist therapists. Nineteen treatments. Floor 2. Open daily from nine until eight.</p>
-      <a href="#" class="exp-a">Discover the Spa</a>
+      <a href="explore.html#spa" class="exp-a">Discover the Spa</a>
     </div>
     <div class="exp-card reveal reveal-d2">
       <div class="exp-num">02</div>
       <div class="exp-ic">♦</div>
       <div class="exp-h3">Dining &amp; Bars</div>
       <p class="exp-p">Grandure Restaurant, the Rooftop Lounge at sunset, the Pool Bar at midday. Each setting its own story.</p>
-      <a href="#" class="exp-a">View Restaurants</a>
+      <a href="explore.html#dining" class="exp-a">View Restaurants</a>
     </div>
     <div class="exp-card reveal reveal-d3">
       <div class="exp-num">03</div>
       <div class="exp-ic">❋</div>
-      <div class="exp-h3">London Experiences</div>
+      <div class="exp-h3">Bespoke Experiences</div>
       <p class="exp-p">Private tours, curated excursions, and bespoke arrangements through your personal concierge.</p>
-      <a href="#" class="exp-a">Plan Your Stay</a>
+      <a href="explore.html" class="exp-a">Plan Your Stay</a>
     </div>
   </div>
 </section>
@@ -783,7 +794,7 @@ footer{
     <h2 class="sec-h2">A Sanctuary of<br/><em>Quiet Restoration</em></h2>
     <div class="rule"></div>
     <p class="sec-p">Nineteen treatments. Eight therapists. One floor entirely devoted to stillness. The Grandure Spa — where recovery is ritual.</p>
-    <a href="#" class="btn-ghost">Explore Treatments</a>
+    <a href="explore.html#spa" class="btn-ghost">Explore Treatments</a>
   </div>
 </div>
 
@@ -797,7 +808,7 @@ footer{
     <h2 class="sec-h2">The Art of<br/><em>The Table</em></h2>
     <div class="rule"></div>
     <p class="sec-p">Five distinct settings. Fifty-seven menu items. From the Rooftop Lounge at dusk to Grandure Restaurant at dinner.</p>
-    <a href="#" class="btn-g" style="margin-top:44px;display:inline-block">View Menus</a>
+    <a href="explore.html#dining" class="btn-g" style="margin-top:44px;display:inline-block">View Menus</a>
   </div>
 </div>
 
@@ -805,7 +816,7 @@ footer{
 <section class="quote">
   <span class="q-mark reveal">"</span>
   <p class="q-text reveal reveal-d1">At Grandure, every stay is a chapter you write yourself. We simply ensure the setting is worthy of the story.</p>
-  <div class="q-attr reveal reveal-d2">Grandure Hotel · Knightsbridge · London SW1</div>
+  <div class="q-attr reveal reveal-d2">Grandure Hotel</div>
 </section>
 
 <!-- ── Footer ─────────────────────────────────────────── -->
@@ -813,31 +824,31 @@ footer{
   <div class="footer-g">
     <div>
       <div class="f-brand">Grandure</div>
-      <p class="f-tag">A luxury address in the heart of<br/>Knightsbridge · London SW1</p>
+      <p class="f-tag">A private address of singular luxury,<br/>crafted for those who know the difference.</p>
     </div>
     <div>
       <div class="f-head">Stay</div>
       <ul class="f-links">
-        <li><a href="#">Presidential Suite</a></li>
-        <li><a href="#">Junior Suite</a></li>
-        <li><a href="#">Superior Room</a></li>
-        <li><a href="#">Standard Room</a></li>
+        <li><a href="explore.html">Presidential Suite</a></li>
+        <li><a href="explore.html#floor4">Junior Suite</a></li>
+        <li><a href="explore.html#floor3">Superior Room</a></li>
+        <li><a href="explore.html#floor1">Standard Room</a></li>
       </ul>
     </div>
     <div>
       <div class="f-head">Experience</div>
       <ul class="f-links">
-        <li><a href="#">Grandure Spa</a></li>
-        <li><a href="#">Grandure Restaurant</a></li>
-        <li><a href="#">Rooftop Lounge</a></li>
-        <li><a href="#">Pool Bar &amp; Grill</a></li>
+        <li><a href="explore.html#spa">Grandure Spa</a></li>
+        <li><a href="explore.html#dining">Grandure Restaurant</a></li>
+        <li><a href="explore.html#rooftop">Rooftop Lounge</a></li>
+        <li><a href="explore.html#dining">Pool Bar &amp; Grill</a></li>
       </ul>
     </div>
     <div>
       <div class="f-head">Contact</div>
       <ul class="f-links">
         <li><a href="#">concierge@grandure.com</a></li>
-        <li><a href="#">+44 (0) 20 0000 0000</a></li>
+        <li><a href="#">+1 (800) 000 0000</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Terms</a></li>
       </ul>
@@ -877,10 +888,9 @@ footer{
 
   <div class="prov-bar" id="provBar">
     <span class="prov-lbl">Model</span>
-    <button class="pb pc"    data-p="claude"     data-m="claude-opus-4-5">Claude</button>
+    <button class="pb pc"    data-p="claude"     data-m="claude-haiku-4-5-20251001">Claude</button>
     <button class="pb pg"    data-p="gemini"     data-m="gemini-2.0-flash">Gemini</button>
     <button class="pb po on" data-p="openrouter" data-m="google/gemma-3-27b-it">Gemma</button>
-    <button class="pb pa"    data-p="azure"      data-m="gpt-4o">Azure</button>
   </div>
   <div class="model-row" id="modelRow">
     <label>Model override</label>
@@ -892,13 +902,16 @@ footer{
 
   <div class="c-inp-area">
     <div class="c-inp-row">
+      <button class="c-mic" id="micBtn" aria-label="Voice input" title="Voice input">
+        <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </button>
       <input class="c-inp" id="cinp" placeholder="Write to your concierge…" autocomplete="off"/>
       <button class="c-send" id="sendBtn" aria-label="Send">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
     </div>
   </div>
-  <div class="c-foot" id="cfoot">Claude · Grandure Hotel · Knightsbridge</div>
+  <div class="c-foot" id="cfoot">Grandure Hotel · Personal Concierge</div>
 </div>
 
 <script>
@@ -987,9 +1000,9 @@ document.querySelectorAll('[data-tilt]').forEach(card=>{
 /* ── Chat Logic ──────────────────────────────────────── */
 const BACKEND    = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
   ? "http://localhost:8000"
-  : "https://grandure-api.onrender.com";  /* ← replace with your Render URL after deploy */
-const PROV_NAMES = {claude:"Claude",gemini:"Gemini",openrouter:"Gemma",azure:"Azure GPT-4o"};
-const PROV_CSS   = {claude:"pc",gemini:"pg",openrouter:"po",azure:"pa"};
+  : "https://grandure.onrender.com";  /* ← replace with your Render URL after deploy */
+const PROV_NAMES = {claude:"Claude",gemini:"Gemini",openrouter:"Gemma"};
+const PROV_CSS   = {claude:"pc",gemini:"pg",openrouter:"po"};
 const EMAIL_RE   = /\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/;
 
 let history=[], isOpen=false, isTyping=false;
@@ -1158,6 +1171,27 @@ document.getElementById('sendBtn').addEventListener('click',()=>send(document.ge
 document.getElementById('cinp').addEventListener('keydown',e=>{
   if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send(e.target.value);}
 });
+
+/* ── Voice Input ──────────────────────────────────────── */
+(function(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const btn=document.getElementById('micBtn');
+  if(!SR){btn.style.display='none';return;}
+  let rec=null,active=false;
+  btn.addEventListener('click',()=>{
+    if(active){rec&&rec.stop();return;}
+    rec=new SR();rec.lang='en-GB';rec.interimResults=false;rec.maxAlternatives=1;
+    active=true;btn.classList.add('listening');
+    rec.onresult=e=>{
+      const t=e.results[0][0].transcript;
+      document.getElementById('cinp').value=t;
+      document.getElementById('cinp').focus();
+    };
+    rec.onend=()=>{active=false;btn.classList.remove('listening');};
+    rec.onerror=()=>{active=false;btn.classList.remove('listening');};
+    rec.start();
+  });
+})();
 </script>
 </body>
 </html>

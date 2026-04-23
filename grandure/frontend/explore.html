@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grandure · Hotel Explorer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;--gold-dk:#8C6E24;
+  --gold-glow:rgba(201,168,76,0.35);
+  --ink:#060402;--muted:#7A7060;
+  --serif:'Cormorant Garamond',serif;
+  --sans:'Jost',sans-serif;
+}
+html,body{height:100%;overflow:hidden;background:var(--ink);font-family:var(--sans)}
+
+/* ── Scene ── */
+#scene{
+  position:fixed;inset:0;
+  background:radial-gradient(ellipse at 50% 30%,#1a1008 0%,#040302 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:var(--a,.3)}50%{opacity:1}}
+
+/* ── SVG building positioner ── */
+#hwp{
+  transition:transform .5s cubic-bezier(0.34,1.06,0.64,1);
+  display:flex;align-items:center;justify-content:center;
+}
+#hwp.shifted{transform:translateX(-200px)}
+#bld{
+  width:920px;height:680px;max-width:100vw;
+  overflow:visible;
+}
+/* Make SVG scale on small screens */
+@media(max-width:960px){
+  #bld{width:calc(100vw - 20px);height:auto}
+  #hwp.shifted{transform:none}
+}
+
+/* ── Hover tooltip ── */
+#rtip{
+  position:fixed;z-index:700;pointer-events:none;
+  background:rgba(4,2,1,.97);border:1px solid rgba(201,168,76,.45);
+  padding:5px 12px;font-family:var(--sans);font-size:8.5px;
+  letter-spacing:.1em;color:var(--gold);white-space:nowrap;
+  opacity:0;transition:opacity .12s;backdrop-filter:blur(8px);
+}
+#rtip.show{opacity:1}
+
+/* ── Left floor nav ── */
+#floor-nav{
+  position:fixed;left:24px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:6px;z-index:50;
+}
+.fn{
+  width:52px;height:52px;border:1px solid rgba(201,168,76,.18);
+  background:rgba(4,2,1,.75);backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s;
+}
+.fn:hover,.fn.act{background:rgba(201,168,76,.14);border-color:var(--gold)}
+.fn-n{font-family:var(--serif);font-size:18px;color:var(--gold);line-height:1}
+.fn-l{font-family:var(--sans);font-size:6.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:2px}
+.fn.roof-item .fn-n{font-size:10px;letter-spacing:.15em}
+
+/* ── Legend ── */
+#leg{
+  position:fixed;top:70px;right:26px;z-index:50;
+  background:rgba(4,2,1,.8);backdrop-filter:blur(8px);
+  border:1px solid rgba(201,168,76,.1);padding:11px 14px;
+}
+.li{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.li:last-child{margin-bottom:0}
+.ld{width:10px;height:10px;border-radius:50%}
+.ld.a{background:rgba(201,168,76,.8);border:1px solid var(--gold)}
+.ld.b{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.lt{font-family:var(--sans);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+/* ── Top bar ── */
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;padding:16px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(4,2,1,.88),transparent);
+}
+.logo{font-family:var(--serif);font-size:18px;letter-spacing:.22em;color:#fff}
+.logo em{color:var(--gold);font-style:normal}
+.tnav{display:flex;gap:22px;list-style:none}
+.tnav a{
+  font-family:var(--sans);font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);
+  text-decoration:none;transition:color .2s;
+}
+.tnav a:hover{color:var(--gold)}
+.tbtns{display:flex;gap:8px}
+.tb{font-family:var(--sans);font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:8px 18px;cursor:pointer;transition:all .2s}
+.tb.g{background:transparent;color:rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.1)}.tb.g:hover{border-color:var(--gold);color:var(--gold)}
+.tb.s{background:var(--gold);color:#000;border:1px solid var(--gold)}.tb.s:hover{background:var(--gold-dk)}
+
+/* ── Detail panel ── */
+#room-panel{
+  position:fixed;right:-450px;top:0;bottom:0;width:420px;
+  background:rgba(6,4,2,.98);backdrop-filter:blur(20px);
+  border-left:1px solid rgba(201,168,76,.12);
+  transition:right .5s cubic-bezier(0.34,1.06,0.64,1);
+  overflow-y:auto;z-index:100;display:flex;flex-direction:column;
+}
+#room-panel.open{right:0}
+#room-panel::-webkit-scrollbar{width:2px}
+#room-panel::-webkit-scrollbar-thumb{background:rgba(201,168,76,.15)}
+.ph{height:255px;position:relative;overflow:hidden;flex-shrink:0}
+.ph img{width:100%;height:100%;object-fit:cover;opacity:.72;transition:transform .6s}
+#room-panel:hover .ph img{transform:scale(1.04)}
+.ph-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(6,4,2,.98) 100%)}
+.ph-badge{
+  position:absolute;top:16px;left:16px;
+  font-family:var(--sans);font-size:8px;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(201,168,76,.35);padding:4px 11px;background:rgba(0,0,0,.6);
+}
+.ph-close{
+  position:absolute;top:12px;right:12px;width:30px;height:30px;
+  background:rgba(0,0,0,.7);border:1px solid rgba(201,168,76,.25);
+  color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.ph-close:hover{color:#fff;border-color:var(--gold)}
+.pb{padding:20px 22px;flex:1}
+.pb-rn{font-family:var(--sans);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.pb-title{font-family:var(--serif);font-size:26px;font-weight:300;color:#fff;margin-bottom:4px}
+.pb-price{font-family:var(--serif);font-size:19px;color:var(--gold);margin-bottom:16px}
+.pb-price small{font-size:12px;color:var(--muted);font-family:var(--sans)}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:20px}
+.feat{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);padding:10px}
+.feat-ic{font-size:13px;margin-bottom:4px}
+.feat-l{font-family:var(--sans);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.feat-v{font-family:var(--serif);font-size:13px;color:#fff;margin-top:2px}
+.astrip{margin-bottom:18px}
+.astrip-t{font-family:var(--sans);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.adays{display:flex;gap:3px;flex-wrap:wrap}
+.ad{width:31px;height:31px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .15s}
+.ad.fr{border-color:rgba(201,168,76,.28);background:rgba(201,168,76,.07)}
+.ad.fr:hover,.ad.sel{background:var(--gold);border-color:var(--gold)}
+.ad.fr:hover .ad-n,.ad.sel .ad-n{color:#000}
+.ad.bk{opacity:.3;cursor:default}
+.ad-n{font-family:var(--serif);font-size:12px;color:rgba(255,255,255,.6)}
+.ad-d{font-family:var(--sans);font-size:7px;color:var(--muted)}
+.xs-t{font-family:var(--sans);font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;margin-top:3px}
+.xc{display:flex;gap:10px;padding:11px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.015);margin-bottom:5px;cursor:pointer;transition:all .2s}
+.xc:hover{border-color:rgba(201,168,76,.28);background:rgba(201,168,76,.04)}
+.xc img{width:56px;height:56px;object-fit:cover;flex-shrink:0;opacity:.8}
+.xc-inf{flex:1}.xc-cat{font-family:var(--sans);font-size:7px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.xc-name{font-family:var(--serif);font-size:13px;color:#fff;margin:2px 0}
+.xc-pr{font-family:var(--sans);font-size:10px;color:var(--gold)}
+.cta-main{display:block;width:100%;padding:14px;background:var(--gold);color:#000;font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s;margin-bottom:5px}
+.cta-main:hover{background:var(--gold-dk)}
+.cta-ghost{display:block;width:100%;padding:12px;background:transparent;color:rgba(255,255,255,.45);font-family:var(--sans);font-size:9px;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:all .2s}
+.cta-ghost:hover{border-color:var(--gold);color:var(--gold)}
+#room-panel.venue-mode .pb-rn{display:none}
+#room-panel.venue-mode .astrip{display:none}
+
+/* ── Chat FAB ── */
+.chat-fab{
+  position:fixed;bottom:30px;right:30px;z-index:300;
+  width:58px;height:58px;border-radius:50%;
+  background:rgba(6,4,2,.92);border:1px solid var(--gold);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:2px;
+  box-shadow:0 8px 28px rgba(0,0,0,.6);
+  transition:transform .3s,box-shadow .3s;backdrop-filter:blur(12px);
+}
+.chat-fab:hover{transform:scale(1.1);box-shadow:0 12px 36px rgba(0,0,0,.7),0 0 22px var(--gold-glow)}
+.fab-pulse{position:absolute;top:4px;right:4px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--ink)}
+.fab-pulse::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:rgba(201,168,76,.4);animation:fabping 2s ease-in-out infinite}
+@keyframes fabping{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:0}}
+.fab-lbl{font-family:var(--sans);font-size:5.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+
+/* ── Chat panel ── */
+.chat-float{
+  position:fixed;bottom:102px;right:30px;z-index:300;
+  width:min(380px,calc(100vw - 20px));
+  background:rgba(6,4,2,.97);backdrop-filter:blur(24px);
+  border:1px solid rgba(201,168,76,.22);
+  box-shadow:0 24px 60px rgba(0,0,0,.75);
+  display:flex;flex-direction:column;
+  transform:translateY(14px) scale(0.97);
+  opacity:0;pointer-events:none;
+  transition:all .35s cubic-bezier(0.34,1.06,0.64,1);
+}
+.chat-float.open{transform:none;opacity:1;pointer-events:all}
+.cf-qp{padding:9px 11px;border-bottom:1px solid rgba(201,168,76,.08);display:flex;gap:5px;flex-wrap:wrap;background:rgba(0,0,0,.4)}
+.cf-qp-btn{font-family:var(--sans);font-size:7.5px;letter-spacing:.06em;border:1px solid rgba(201,168,76,.18);background:transparent;color:rgba(255,255,255,.48);padding:5px 11px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cf-qp-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cf-head{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid rgba(201,168,76,.1);background:rgba(201,168,76,.03)}
+.cf-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#2a1e0a,#1a1208);display:flex;align-items:center;justify-content:center;border:1px solid rgba(201,168,76,.3);flex-shrink:0}
+.cf-av span{font-family:var(--serif);font-size:13px;color:var(--gold)}
+.cf-meta{flex:1}
+.cf-name{font-family:var(--serif);font-size:14px;color:#fff}
+.cf-status{font-family:var(--sans);font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:rgba(201,168,76,.6);margin-top:2px}
+.cf-close{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:13px;padding:4px;transition:color .2s}
+.cf-close:hover{color:var(--gold)}
+.cf-bub{padding:14px 16px;font-family:var(--serif);font-size:14px;color:rgba(255,255,255,.82);line-height:1.7;min-height:52px}
+.tdots{display:inline-flex;gap:4px;align-items:center}
+.tdots span{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:td 1.2s ease-in-out infinite}
+.tdots span:nth-child(2){animation-delay:.2s}.tdots span:nth-child(3){animation-delay:.4s}
+@keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.cf-inp-row{display:flex;border-top:1px solid rgba(201,168,76,.1);background:rgba(0,0,0,.5)}
+#cinp{flex:1;padding:10px 15px;background:transparent;border:none;font-family:var(--serif);font-size:14px;color:#fff;outline:none}
+#cinp::placeholder{color:rgba(255,255,255,.2);font-style:italic}
+#csend{width:40px;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+#csend:hover{background:var(--gold-dk)}
+#csend svg{width:12px;height:12px;fill:none;stroke:#000;stroke-width:2}
+#cmic{width:36px;height:100%;background:transparent;border:none;border-right:1px solid rgba(201,168,76,.1);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+#cmic:hover{background:rgba(201,168,76,.08)}
+#cmic.listening{background:rgba(201,168,76,.16);animation:cmicpulse 1s ease-in-out infinite}
+#cmic svg{width:12px;height:12px;fill:none;stroke:rgba(201,168,76,.6);stroke-width:1.8;stroke-linecap:round}
+#cmic.listening svg{stroke:var(--gold)}
+@keyframes cmicpulse{0%,100%{box-shadow:inset 0 0 0 0 rgba(201,168,76,.3)}50%{box-shadow:inset 0 0 8px rgba(201,168,76,.2)}}
+.cf-dqr{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px;border-top:1px solid rgba(201,168,76,.07);background:rgba(0,0,0,.3);min-height:0}
+.cf-dqr:empty{padding:0;border:none}
+.cf-dqr-btn{font-family:var(--sans);font-size:7.5px;letter-spacing:.06em;border:1px solid rgba(201,168,76,.22);background:transparent;color:rgba(255,255,255,.55);padding:5px 11px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.cf-dqr-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06)}
+
+.hint{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:50;font-family:var(--sans);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.15);text-align:center;pointer-events:none}
+
+@media(max-width:700px){#floor-nav,#leg,.tnav,.tbtns{display:none}#room-panel{width:100vw}}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div id="rtip"></div>
+
+<div id="topbar">
+  <a href="index.html" style="text-decoration:none"><div class="logo"><em>G</em>randure <span style="font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.22);font-family:var(--sans)">EXPLORER</span></div></a>
+  <ul class="tnav">
+    <li><a href="index.html">← Home</a></li>
+    <li><a href="#" onclick="selFloor(5);return false">Rooms</a></li>
+    <li><a href="#" onclick="selFloor(2);return false">Spa</a></li>
+    <li><a href="#" onclick="selRoof();return false">Dining</a></li>
+  </ul>
+  <div class="tbtns">
+    <button class="tb g" onclick="openChat();setTimeout(()=>document.getElementById('cinp').focus(),100)">Ask Concierge</button>
+    <button class="tb s" onclick="openChat();setTimeout(()=>ask('I would like to make a reservation'),300)">Reserve</button>
+  </div>
+</div>
+
+<div id="floor-nav"></div>
+<div id="leg">
+  <div class="li"><div class="ld a"></div><span class="lt">Available</span></div>
+  <div class="li"><div class="ld b"></div><span class="lt">Booked</span></div>
+</div>
+
+<div class="hint">Click any room window on the building to explore</div>
+
+<!-- ── 3D SVG Building ── -->
+<div id="scene">
+  <div id="hwp">
+    <svg id="bld" viewBox="0 0 920 680" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <!-- Facade gradient (left→right, warm centre) -->
+        <linearGradient id="fg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#14100a"/>
+          <stop offset="35%" stop-color="#241a0c"/>
+          <stop offset="65%" stop-color="#241a0c"/>
+          <stop offset="100%" stop-color="#14100a"/>
+        </linearGradient>
+        <!-- Side wall gradient (darker) -->
+        <linearGradient id="sg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#0e0b06"/>
+          <stop offset="100%" stop-color="#080604"/>
+        </linearGradient>
+        <!-- Roof top surface gradient -->
+        <linearGradient id="rtg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a1e0e"/>
+          <stop offset="100%" stop-color="#1a1208"/>
+        </linearGradient>
+        <!-- Available window gradient -->
+        <linearGradient id="wa" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(201,168,76,0.42)"/>
+          <stop offset="100%" stop-color="rgba(201,168,76,0.08)"/>
+        </linearGradient>
+        <!-- Selected window gradient -->
+        <linearGradient id="ws" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(201,168,76,0.82)"/>
+          <stop offset="100%" stop-color="rgba(201,168,76,0.42)"/>
+        </linearGradient>
+        <!-- Glow filter for selected room -->
+        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Subtle glow for available dot -->
+        <filter id="dg" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Floor accent line gradient -->
+        <linearGradient id="fal" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(201,168,76,0)"/>
+          <stop offset="20%" stop-color="rgba(201,168,76,0.28)"/>
+          <stop offset="80%" stop-color="rgba(201,168,76,0.28)"/>
+          <stop offset="100%" stop-color="rgba(201,168,76,0)"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ═══ STATIC BUILDING STRUCTURE ═══ -->
+
+      <!-- Building drop shadow -->
+      <ellipse cx="480" cy="660" rx="320" ry="16" fill="rgba(0,0,0,0.45)"/>
+
+      <!-- Roof top surface (isometric top of building) -->
+      <polygon points="100,130 700,130 780,80 180,80" fill="url(#rtg)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+      <!-- Roof top surface detail lines -->
+      <line x1="100" y1="130" x2="700" y2="130" stroke="rgba(201,168,76,0.18)" stroke-width="0.8"/>
+      <line x1="180" y1="80" x2="780" y2="80" stroke="rgba(201,168,76,0.12)" stroke-width="0.5"/>
+
+      <!-- Main facade background (all 5 floors + rooftop, y=130 to y=650) -->
+      <rect x="100" y="130" width="600" height="520" fill="url(#fg)"/>
+
+      <!-- Right side wall background (full height) -->
+      <polygon points="700,130 780,80 780,600 700,650" fill="url(#sg)"/>
+
+      <!-- Ground base front -->
+      <rect x="100" y="650" width="600" height="14" fill="#0e0b06"/>
+      <polygon points="700,650 780,600 780,614 700,664" fill="#070503"/>
+      <!-- Ground line accent -->
+      <line x1="100" y1="650" x2="700" y2="650" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+      <line x1="700" y1="650" x2="780" y2="600" stroke="rgba(201,168,76,0.1)" stroke-width="0.8"/>
+
+      <!-- Outer building border -->
+      <rect x="100" y="130" width="600" height="520" fill="none" stroke="rgba(201,168,76,0.12)" stroke-width="1"/>
+      <line x1="700" y1="130" x2="700" y2="650" stroke="rgba(201,168,76,0.08)" stroke-width="0.8"/>
+
+      <!-- ═══ DYNAMIC: floors, rooms, rooftop ═══ -->
+      <g id="bld-roof"></g>
+      <g id="bld-floors"></g>
+    </svg>
+  </div>
+</div>
+
+<!-- Detail panel -->
+<div id="room-panel">
+  <div class="ph"><img id="pi" src="" alt=""/><div class="ph-ov"></div><div class="ph-badge" id="pb2">Floor 5</div><button class="ph-close" onclick="closePanel()">✕</button></div>
+  <div class="pb">
+    <div class="pb-rn" id="prn"></div>
+    <div class="pb-title" id="ptitle">Presidential Suite</div>
+    <div class="pb-price" id="pprice">£1,200 <small>per night</small></div>
+    <div class="feats" id="pfeats"></div>
+    <div class="astrip"><div class="astrip-t">June 2026 Availability</div><div class="adays" id="pdays"></div></div>
+    <div class="xs-t" id="pxs-t">Complete Your Stay</div>
+    <div id="pxs"></div>
+    <button class="cta-main" id="pcta">Reserve This Room</button>
+    <button class="cta-ghost" onclick="closePanel()">Continue Exploring</button>
+  </div>
+</div>
+
+<!-- Chat FAB -->
+<button class="chat-fab" onclick="toggleChat()">
+  <div class="fab-pulse"></div>
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </svg>
+  <span class="fab-lbl">Concierge</span>
+</button>
+
+<!-- Chat float -->
+<div class="chat-float" id="chat-float">
+  <div class="cf-qp">
+    <button class="cf-qp-btn" data-q="Tell me about the Presidential Suite">Presidential Suite</button>
+    <button class="cf-qp-btn" data-q="Tell me about the Junior Suite">Junior Suites</button>
+    <button class="cf-qp-btn" data-q="Tell me about the spa treatments" data-ctx="Guest wants to explore spa treatments — describe experiences and prices from RAG, do not ask for check-in date or number of guests">Grandure Spa</button>
+    <button class="cf-qp-btn" data-q="Tell me about rooftop dining" data-ctx="Guest wants to explore rooftop dining — describe the venue, menu highlights and atmosphere, do not ask for check-in date or number of guests">Rooftop Dining</button>
+    <button class="cf-qp-btn" data-q="I would like to book a spa treatment">Book Spa</button>
+  </div>
+  <div class="cf-head">
+    <div class="cf-av"><span>G</span></div>
+    <div class="cf-meta">
+      <div class="cf-name">Grandure Concierge</div>
+      <div class="cf-status">● Available now</div>
+    </div>
+    <button class="cf-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="cf-bub" id="cbub">Welcome to Grandure. The building is your map — rooms glow gold when available. Ask me anything.</div>
+  <div class="cf-dqr" id="cf-dqr"></div>
+  <div class="cf-inp-row">
+    <button id="cmic" aria-label="Voice input" title="Voice input"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+    <input id="cinp" placeholder="Ask your concierge…"/>
+    <button id="csend"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+  </div>
+</div>
+
+<script>
+const BACKEND = "https://grandure.onrender.com";
+
+// ── Building coordinate constants ──
+const B = {
+  fx:100, fw:600,           // facade x, width
+  lw:75,                     // label strip width (left)
+  wx:175, ww:525,           // window area start, width
+  dx:80, dy:50,             // isometric offset (right wall)
+  gap:12,                   // gap between room windows
+};
+
+// Floor Y positions {y: top, h: height}
+const FY = {
+  roof:{y:130,h:70},
+  5:{y:200,h:90}, 4:{y:290,h:90}, 3:{y:380,h:90}, 2:{y:470,h:90}, 1:{y:560,h:90}
+};
+
+// Pre-computed window X/W per floor (proportional to room type, fills full window area)
+const WIN = {
+  5:[
+    {rid:'5P01',x:175,w:140},
+    {rid:'5P02',x:327,w:140},
+    {rid:'5J01',x:479,w:105},
+    {rid:'5J02',x:596,w:104},
+  ],
+  4:[
+    {rid:'4J07',x:175,w:119},
+    {rid:'4J08',x:306,w:119},
+    {rid:'4S01',x:437,w:80},
+    {rid:'4S02',x:529,w:80},
+    {rid:'4S03',x:621,w:79},
+  ],
+  3:[
+    {rid:'3S07',x:175,w:108},
+    {rid:'3S08',x:295,w:108},
+    {rid:'3T01',x:415,w:87},
+    {rid:'3T02',x:514,w:87},
+    {rid:'3T03',x:613,w:87},
+  ],
+  1:[
+    {rid:'1T13',x:175,w:122},
+    {rid:'1T14',x:309,w:122},
+    {rid:'1T15',x:443,w:122},
+    {rid:'1T16',x:577,w:123},
+  ],
+};
+const SPA = [
+  {x:175,w:122,ic:'◎',lbl:'Massage'},
+  {x:309,w:122,ic:'✦',lbl:'Facial'},
+  {x:443,w:122,ic:'◈',lbl:'Wellness'},
+  {x:577,w:123,ic:'❋',lbl:'Ritual'},
+];
+
+// ── Hotel data ──
+const FLOORS=[
+  {n:5,type:'Presidential & Junior',
+   rooms:[
+     {id:'5P01',t:'Presidential Suite',s:'AVAILABLE',p:1200,img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80'},
+     {id:'5P02',t:'Presidential Suite',s:'BOOKED',   p:1200,img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80'},
+     {id:'5J01',t:'Junior Suite',      s:'AVAILABLE',p:450, img:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80'},
+     {id:'5J02',t:'Junior Suite',      s:'BOOKED',   p:450, img:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80'},
+   ]},
+  {n:4,type:'Junior Suites & Superior',
+   rooms:[
+     {id:'4J07',t:'Junior Suite',s:'AVAILABLE',p:450,img:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80'},
+     {id:'4J08',t:'Junior Suite',s:'AVAILABLE',p:450,img:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=80'},
+     {id:'4S01',t:'Superior',    s:'BOOKED',   p:220,img:'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80'},
+     {id:'4S02',t:'Superior',    s:'AVAILABLE',p:220,img:'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80'},
+     {id:'4S03',t:'Superior',    s:'AVAILABLE',p:220,img:'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80'},
+   ]},
+  {n:3,type:'Superior & Standard',
+   rooms:[
+     {id:'3S07',t:'Superior',s:'AVAILABLE',p:220,img:'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80'},
+     {id:'3S08',t:'Superior',s:'BOOKED',   p:220,img:'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80'},
+     {id:'3T01',t:'Standard', s:'AVAILABLE',p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+     {id:'3T02',t:'Standard', s:'AVAILABLE',p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+     {id:'3T03',t:'Standard', s:'BOOKED',   p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+   ]},
+  {n:2,type:'Spa & Wellness',isSpa:true,rooms:[]},
+  {n:1,type:'Standard Rooms',
+   rooms:[
+     {id:'1T13',t:'Standard',s:'AVAILABLE',p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+     {id:'1T14',t:'Standard',s:'BOOKED',   p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+     {id:'1T15',t:'Standard',s:'AVAILABLE',p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+     {id:'1T16',t:'Standard',s:'AVAILABLE',p:130,img:'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80'},
+   ]},
+];
+const META={
+  'Presidential Suite':{
+    feats:[{i:'🌊',l:'View',v:'Ocean Panorama'},{i:'🛏',l:'Bed',v:'King + King'},{i:'👥',l:'Guests',v:'Up to 4'},{i:'📐',l:'Size',v:'120 sqm'}],
+    xs:[{c:'Spa',n:'Dual Suite Massage',p:'£220',img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70'},{c:'Dining',n:'Rooftop · Whispering Angel',p:'£65',img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70'}]},
+  'Junior Suite':{
+    feats:[{i:'🏙',l:'View',v:'City & Pool'},{i:'🛏',l:'Bed',v:'King'},{i:'👥',l:'Guests',v:'Up to 3'},{i:'📐',l:'Size',v:'65 sqm'}],
+    xs:[{c:'Spa',n:'Aromatherapy Massage',p:'£125',img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70'},{c:'Dining',n:'Grandure Restaurant',p:'£45+',img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70'}]},
+  'Superior':{
+    feats:[{i:'🌿',l:'View',v:'Garden / City'},{i:'🛏',l:'Bed',v:'Queen / Twin'},{i:'👥',l:'Guests',v:'Up to 2'},{i:'📐',l:'Size',v:'38 sqm'}],
+    xs:[{c:'Spa',n:'Deep Tissue Massage',p:'£115',img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70'},{c:'Dining',n:'Pool Bar · Aperol Spritz',p:'£14',img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70'}]},
+  'Standard':{
+    feats:[{i:'🏡',l:'View',v:'Courtyard'},{i:'🛏',l:'Bed',v:'Double / Twin'},{i:'👥',l:'Guests',v:'Up to 2'},{i:'📐',l:'Size',v:'26 sqm'}],
+    xs:[{c:'Spa',n:'Swedish Massage',p:'£95',img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70'},{c:'Dining',n:'Room Service',p:'from £9',img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70'}]},
+};
+const NAV=[
+  {k:['presidential','floor 5','suite 5'],f:5,t:'Presidential Suite'},
+  {k:['junior suite','junior'],f:4,t:'Junior Suite'},
+  {k:['superior'],f:3,t:'Superior'},
+  {k:['spa','treatment','massage','facial','floor 2'],f:2,t:null},
+  {k:['rooftop','roof top','dining','restaurant','lounge'],f:'roof',t:null},
+  {k:['standard','floor 1'],f:1,t:'Standard'},
+];
+const FALLBACK={
+  presidential:'The Presidential Suite on Floor 5 — 120 sqm of ocean panorama, two king beds, private terrace and butler service. I have navigated you there. From £1,200 per night.',
+  'junior suite':'The Junior Suite — king bed, city and pool views. Available on Floors 4 and 5. From £450 per night.',
+  junior:'The Junior Suite — king bed, city views. From £450 per night.',
+  spa:'The Grandure Spa on Floor 2 — nineteen treatments, eight specialists. The Signature Journey with Mei Lin is our most exceptional experience. From £220.',
+  rooftop:'The Rooftop Lounge is open from 17:00 — panoramic views, Espresso Martini £14, Whispering Angel Rosé £65. I have navigated you there.',
+  dining:'Five settings: Grandure Restaurant, Rooftop Lounge at sunset, Pool Bar, Spa Lounge, Room Service until 23:00.',
+  anniversary:'For an anniversary: Presidential Suite, Dual Suite Massage, and the Rooftop Lounge at sunset with Whispering Angel Rosé. Shall I arrange all three?',
+  birthday:'The Signature Journey with Mei Lin paired with a personalised dessert at Grandure Restaurant — an exceptional birthday experience.',
+};
+
+let activeF=5, selRoom=null, hist=[], typing=false, chatOpen=false;
+let guestEmail=null, emailSent=false, awaitingEmail=false, lastAutoAsked=null;
+let bookingStep='idle', bookingData={};
+const EMAIL_RE=/\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/;
+
+// ── Stars ──
+(()=>{
+  const s=document.getElementById('stars');
+  for(let i=0;i<100;i++){
+    const d=document.createElement('div');d.className='star';
+    const sz=Math.random()*2+.4;
+    d.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*5}s;--a:${.2+Math.random()*.6};animation-delay:${Math.random()*5}s`;
+    s.appendChild(d);
+  }
+})();
+
+// ── Left nav ──
+(()=>{
+  const nav=document.getElementById('floor-nav');
+  const r=document.createElement('div');
+  r.className='fn roof-item';r.dataset.id='roof';
+  r.innerHTML='<div class="fn-n">Roof</div><div class="fn-l">Dining</div>';
+  r.onclick=()=>selRoof();nav.appendChild(r);
+  FLOORS.forEach(f=>{
+    const d=document.createElement('div');
+    d.className='fn'+(f.n===5?' act':'');d.dataset.floor=f.n;
+    d.innerHTML=`<div class="fn-n">${f.n}</div><div class="fn-l">${f.isSpa?'Spa':f.type.split(' ')[0]}</div>`;
+    d.onclick=()=>selFloor(f.n);nav.appendChild(d);
+  });
+})();
+
+// ── SVG building renderers ──
+function renderWindow(win, room, fy) {
+  const {x,w} = win;
+  const wy = fy + 14, wh = 58;
+  const avail = room.s==='AVAILABLE';
+  const sel   = selRoom?.id===room.id;
+  const tip   = `${room.t} · £${room.p}${avail?'':' · Unavailable'}`;
+
+  let s='';
+
+  // Glow halo behind selected window
+  if(sel) s+=`<rect x="${x-8}" y="${wy-8}" width="${w+16}" height="${wh+16}" rx="3" fill="rgba(201,168,76,0.22)" filter="url(#glow)"/>`;
+
+  // Window body
+  const fill = sel?'url(#ws)':avail?'url(#wa)':'rgba(10,7,4,0.8)';
+  const stk  = sel?'#C9A84C':avail?'rgba(201,168,76,0.52)':'rgba(255,255,255,0.07)';
+  const stkW = sel?2:1;
+  s+=`<rect x="${x}" y="${wy}" width="${w}" height="${wh}" rx="1.5" fill="${fill}" stroke="${stk}" stroke-width="${stkW}" onclick="openRoom('${room.id}')" style="cursor:pointer"/>`;
+
+  // Window mullions (architectural panes)
+  const mc=sel?'rgba(0,0,0,0.35)':avail?'rgba(201,168,76,0.22)':'rgba(255,255,255,0.05)';
+  // Horizontal bar
+  s+=`<line x1="${x+3}" y1="${wy+wh/2}" x2="${x+w-3}" y2="${wy+wh/2}" stroke="${mc}" stroke-width="0.7" pointer-events="none"/>`;
+  // Vertical bar(s)
+  if(w>=120){
+    s+=`<line x1="${x+w/3}" y1="${wy+4}" x2="${x+w/3}" y2="${wy+wh-4}" stroke="${mc}" stroke-width="0.7" pointer-events="none"/>`;
+    s+=`<line x1="${x+2*w/3}" y1="${wy+4}" x2="${x+2*w/3}" y2="${wy+wh-4}" stroke="${mc}" stroke-width="0.7" pointer-events="none"/>`;
+  } else if(w>=70){
+    s+=`<line x1="${x+w/2}" y1="${wy+4}" x2="${x+w/2}" y2="${wy+wh-4}" stroke="${mc}" stroke-width="0.7" pointer-events="none"/>`;
+  }
+
+  // Abbreviation label below window
+  const abbr={
+    'Presidential Suite':'PRES','Junior Suite':'JR','Superior':'SUP','Standard':'STD'
+  }[room.t]||'';
+  const tc=sel?'rgba(0,0,0,0.7)':avail?'rgba(201,168,76,0.7)':'rgba(255,255,255,0.18)';
+  s+=`<text x="${x+w/2}" y="${wy+wh+13}" font-family="Jost,sans-serif" font-size="7" letter-spacing="1.2" fill="${tc}" text-anchor="middle" pointer-events="none">${abbr}</text>`;
+
+  // Availability dot
+  const dc=sel?'rgba(0,0,0,0.55)':avail?'#C9A84C':'rgba(255,255,255,0.12)';
+  const df=avail&&!sel?' filter="url(#dg)"':'';
+  s+=`<circle cx="${x+w/2}" cy="${wy+wh+23}" r="${sel?4:3}" fill="${dc}"${df} pointer-events="none"/>`;
+
+  // Invisible hit + tooltip target
+  s+=`<rect x="${x}" y="${wy}" width="${w}" height="${wh+28}" rx="1.5" fill="transparent"
+    data-tip="${tip}" onmouseenter="showTip(event,this)" onmouseleave="hideTip()"
+    onclick="openRoom('${room.id}')" style="cursor:pointer"/>`;
+
+  return s;
+}
+
+function renderSpaCell(cell, fy) {
+  const {x,w,ic,lbl}=cell, cy=fy+13, ch=60;
+  return `<g onclick="selFloor(2)" style="cursor:pointer">
+    <rect x="${x}" y="${cy}" width="${w}" height="${ch}" rx="1.5"
+      fill="rgba(201,168,76,0.05)" stroke="rgba(201,168,76,0.22)" stroke-width="1"/>
+    <text x="${x+w/2}" y="${cy+34}" font-family="Cormorant Garamond,serif" font-size="20"
+      fill="rgba(201,168,76,0.65)" text-anchor="middle" pointer-events="none">${ic}</text>
+    <text x="${x+w/2}" y="${cy+53}" font-family="Jost,sans-serif" font-size="6.5" letter-spacing="1.5"
+      fill="rgba(255,255,255,0.3)" text-anchor="middle" pointer-events="none">${lbl.toUpperCase()}</text>
+  </g>`;
+}
+
+function buildSVGHotel() {
+  let floors='';
+
+  FLOORS.forEach(fl=>{
+    const pos=FY[fl.n];if(!pos)return;
+    const {y,h}=pos;
+    const active=fl.n===activeF;
+
+    // Active floor highlight
+    if(active) floors+=`<rect x="100" y="${y}" width="600" height="${h}" fill="rgba(201,168,76,0.07)"/>`;
+
+    // Side wall for this floor (isometric)
+    const sw=active?'rgba(12,9,5,0.98)':'rgba(9,7,4,0.92)';
+    floors+=`<polygon points="700,${y} 780,${y-50} 780,${y+h-50} 700,${y+h}" fill="${sw}"/>`;
+
+    // Floor divider line (front)
+    floors+=`<line x1="100" y1="${y}" x2="700" y2="${y}" stroke="url(#fal)" stroke-width="${active?1.5:1}"/>`;
+    // Side wall divider
+    floors+=`<line x1="700" y1="${y}" x2="780" y2="${y-50}" stroke="rgba(201,168,76,${active?'.2':'.1'})" stroke-width="0.8"/>`;
+
+    // Label strip (vertical divider)
+    floors+=`<line x1="${B.wx}" y1="${y+8}" x2="${B.wx}" y2="${y+h-8}" stroke="rgba(201,168,76,0.07)" stroke-width="0.8"/>`;
+
+    // Floor number
+    const nalpha=active?'.45':'.17';
+    floors+=`<text x="138" y="${y+48}" font-family="Cormorant Garamond,serif" font-size="30"
+      fill="rgba(201,168,76,${nalpha})" text-anchor="middle" style="user-select:none">${fl.n}</text>`;
+
+    // Floor type label
+    const typeShort=fl.isSpa?'SPA':fl.n===5?'SUITE':fl.n===4?'JUNIOR':fl.n===3?'SUPERIOR':'STANDARD';
+    floors+=`<text x="138" y="${y+62}" font-family="Jost,sans-serif" font-size="6" letter-spacing="1.4"
+      fill="rgba(255,255,255,${active?'.28':'.1'})" text-anchor="middle" style="user-select:none">${typeShort}</text>`;
+
+    // Clickable floor background (behind windows)
+    floors+=`<rect x="${B.wx}" y="${y}" width="${B.ww}" height="${h}" fill="transparent"
+      onclick="if(event.target===this)selFloor(${fl.n})" style="cursor:pointer"/>`;
+
+    // Windows / spa cells
+    if(fl.isSpa){
+      SPA.forEach(c=>{ floors+=renderSpaCell(c,y); });
+    } else {
+      const layout=WIN[fl.n]||[];
+      layout.forEach(win=>{
+        const room=fl.rooms.find(r=>r.id===win.rid);
+        if(room) floors+=renderWindow(win,room,y);
+      });
+    }
+  });
+
+  document.getElementById('bld-floors').innerHTML=floors;
+  buildRooftop();
+}
+
+function buildRooftop() {
+  const {y,h}=FY.roof;
+  const active=(activeF==='roof');
+  let s='';
+
+  // Rooftop front face (slightly different shade)
+  s+=`<rect x="100" y="${y}" width="600" height="${h}" fill="rgba(201,168,76,${active?.08:.03})"/>`;
+  s+=`<line x1="100" y1="${y}" x2="700" y2="${y}" stroke="rgba(201,168,76,0.35)" stroke-width="1.5"/>`;
+
+  // Side wall (rooftop)
+  s+=`<polygon points="700,${y} 780,${y-50} 780,${y+h-50} 700,${y+h}" fill="${active?'rgba(12,9,5,0.98)':'rgba(9,7,4,0.92)'}"/>`;
+  s+=`<line x1="700" y1="${y}" x2="780" y2="${y-50}" stroke="rgba(201,168,76,0.25)" stroke-width="1"/>`;
+
+  // Brand name (centre)
+  s+=`<text x="400" y="${y+28}" font-family="Cormorant Garamond,serif" font-size="11" letter-spacing="8"
+    fill="rgba(201,168,76,0.65)" text-anchor="middle" style="user-select:none">GRANDURE</text>`;
+  s+=`<text x="400" y="${y+44}" font-family="Jost,sans-serif" font-size="7" letter-spacing="2.5"
+    fill="rgba(255,255,255,0.28)" text-anchor="middle" style="user-select:none">ROOFTOP LOUNGE</text>`;
+
+  // Terrace tables (right side, decorative)
+  [560,598,636].forEach(tx=>{
+    s+=`<rect x="${tx}" y="${y+28}" width="22" height="12" rx="1" fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>`;
+    // umbrella
+    s+=`<ellipse cx="${tx+11}" cy="${y+24}" rx="14" ry="5" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="0.8"/>`;
+    s+=`<line x1="${tx+11}" y1="${y+24}" x2="${tx+11}" y2="${y+44}" stroke="rgba(201,168,76,0.15)" stroke-width="0.7"/>`;
+  });
+
+  // Open time (right)
+  s+=`<text x="670" y="${y+32}" font-family="Jost,sans-serif" font-size="6.5" letter-spacing="1"
+    fill="rgba(201,168,76,0.45)" text-anchor="end" style="user-select:none">Open · 17:00</text>`;
+  s+=`<text x="670" y="${y+46}" font-family="Cormorant Garamond,serif" font-size="9"
+    fill="rgba(201,168,76,0.35)" text-anchor="end" style="user-select:none;font-style:italic">Reserve a table ↑</text>`;
+
+  // Clickable overlay
+  s+=`<rect x="100" y="${y}" width="600" height="${h}" fill="transparent" onclick="selRoof()" style="cursor:pointer"/>`;
+
+  document.getElementById('bld-roof').innerHTML=s;
+}
+
+// ── Tooltip ──
+function showTip(e,el){
+  const t=document.getElementById('rtip');
+  t.textContent=el.dataset.tip;t.classList.add('show');moveTip(e);
+}
+function hideTip(){document.getElementById('rtip').classList.remove('show');}
+function moveTip(e){
+  const t=document.getElementById('rtip');
+  t.style.left=(e.clientX+14)+'px';t.style.top=(e.clientY-36)+'px';
+}
+document.addEventListener('mousemove',e=>{if(document.getElementById('rtip').classList.contains('show'))moveTip(e);});
+
+// ── Navigation helpers ──
+function setNavActive(id){
+  document.querySelectorAll('.fn').forEach(f=>f.classList.remove('act'));
+  const el=id==='roof'
+    ?document.querySelector('.fn.roof-item')
+    :document.querySelector(`.fn[data-floor="${id}"]`);
+  if(el)el.classList.add('act');
+}
+function shiftBuilding(on){document.getElementById('hwp').classList.toggle('shifted',on);}
+
+// ── selFloor / selRoof ──
+function selFloor(n){
+  activeF=n;setNavActive(n);
+  const fl=FLOORS.find(f=>f.n===n);
+  buildSVGHotel();
+  if(fl?.isSpa){showSpaPanel();return;}
+  if(fl){const av=fl.rooms.find(r=>r.s==='AVAILABLE');if(av)openRoom(av.id);else if(fl.rooms[0])openRoom(fl.rooms[0].id);}
+}
+function selRoof(){
+  activeF='roof';setNavActive('roof');
+  buildSVGHotel();
+  showRooftopPanel();
+}
+
+// ── Room panel ──
+function openRoom(rid){
+  let room,fl;
+  for(const f of FLOORS){const r=f.rooms.find(r=>r.id===rid);if(r){room=r;fl=f;break;}}
+  if(!room)return;
+  selRoom=room;activeF=fl.n;
+  const m=META[room.t]||{};
+  document.getElementById('room-panel').classList.remove('venue-mode');
+  document.getElementById('pi').src=room.img;
+  document.getElementById('pb2').textContent=`Floor ${fl.n}`;
+  document.getElementById('prn').textContent=`Room ${room.id}`;
+  document.getElementById('ptitle').textContent=room.t;
+  document.getElementById('pprice').innerHTML=`£${room.p.toLocaleString()} <small>per night · June 2026</small>`;
+  document.getElementById('pfeats').innerHTML=(m.feats||[]).map(f=>`<div class="feat"><div class="feat-ic">${f.i}</div><div class="feat-l">${f.l}</div><div class="feat-v">${f.v}</div></div>`).join('');
+  const DOW=['Mo','Tu','We','Th','Fr','Sa','Su'];
+  let days='';
+  for(let d=1;d<=30;d++){
+    const dw=new Date(2026,5,d).getDay(),fr=Math.random()>.42;
+    days+=`<div class="ad ${fr?'fr':'bk'}" onclick="if(!this.classList.contains('bk')){document.querySelectorAll('.ad.sel').forEach(e=>e.classList.remove('sel'));this.classList.add('sel')}"><span class="ad-n">${d}</span><span class="ad-d">${DOW[dw===0?6:dw-1]}</span></div>`;
+  }
+  document.getElementById('pdays').innerHTML=days;
+  document.getElementById('pxs-t').textContent='Complete Your Stay';
+  document.getElementById('pxs').innerHTML=(m.xs||[]).map(x=>`<div class="xc" onclick="ask('Tell me about ${x.n}')"><img src="${x.img}" alt=""/><div class="xc-inf"><div class="xc-cat">${x.c}</div><div class="xc-name">${x.n}</div><div class="xc-pr">from ${x.p}</div></div></div>`).join('');
+  const cta=document.getElementById('pcta');
+  cta.textContent=room.s==='AVAILABLE'?'Reserve This Room':'Join Waitlist';
+  cta.style.background=room.s==='AVAILABLE'?'var(--gold)':'rgba(201,168,76,.22)';
+  cta.onclick=room.s==='AVAILABLE'
+    ?()=>{bookingStep='room_pending';bookingData={};ask(`I would like to reserve the ${room.t}`);}
+    :null;
+  document.getElementById('room-panel').classList.add('open');
+  shiftBuilding(true);
+  buildSVGHotel();
+}
+
+function showSpaPanel(){
+  const p=document.getElementById('room-panel');
+  p.classList.add('venue-mode','open');shiftBuilding(true);
+  document.getElementById('pi').src='https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80';
+  document.getElementById('pb2').textContent='Floor 2 · Spa & Wellness';
+  document.getElementById('prn').textContent='';
+  document.getElementById('ptitle').textContent='Grandure Spa';
+  document.getElementById('pprice').innerHTML='from £75 <small>per treatment · Floor 2</small>';
+  document.getElementById('pfeats').innerHTML=`
+    <div class="feat"><div class="feat-ic">🧘</div><div class="feat-l">Treatments</div><div class="feat-v">19 available</div></div>
+    <div class="feat"><div class="feat-ic">👨‍⚕️</div><div class="feat-l">Therapists</div><div class="feat-v">8 specialists</div></div>
+    <div class="feat"><div class="feat-ic">🕐</div><div class="feat-l">Hours</div><div class="feat-v">09:00 – 20:00</div></div>
+    <div class="feat"><div class="feat-ic">⭐</div><div class="feat-l">Mei Lin</div><div class="feat-v">Head Therapist · 5.0</div></div>`;
+  document.getElementById('pxs-t').textContent='Signature Experiences';
+  document.getElementById('pxs').innerHTML=`
+    <div class="xc" onclick="ask('I would like to book the Signature Grandure Journey with Mei Lin')"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70"/><div class="xc-inf"><div class="xc-cat">Most Requested</div><div class="xc-name">Signature Grandure Journey</div><div class="xc-pr">from £220 · 150 min · Mei Lin</div></div></div>
+    <div class="xc" onclick="ask('I would like to book the Dual Suite Massage')"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70"/><div class="xc-inf"><div class="xc-cat">For Two Guests</div><div class="xc-name">Dual Suite Massage</div><div class="xc-pr">from £220 · 90 min</div></div></div>
+    <div class="xc" onclick="ask('I would like to book the Aromatherapy Massage')"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=120&q=70"/><div class="xc-inf"><div class="xc-cat">Relaxation</div><div class="xc-name">Aromatherapy Massage</div><div class="xc-pr">from £125 · 60 min</div></div></div>`;
+  const spaCta=document.getElementById('pcta');
+  spaCta.textContent='Book a Treatment';
+  spaCta.style.background='var(--gold)';
+  spaCta.onclick=()=>ask('I would like to book a spa treatment');
+  if(lastAutoAsked!=='spa'){
+    lastAutoAsked='spa';
+    ask('Tell me about the Grandure Spa','Guest has opened the Spa floor — describe spa treatments and experiences, do not ask for check-in date or room preferences');
+  }
+}
+
+function showRooftopPanel(){
+  const p=document.getElementById('room-panel');
+  p.classList.add('venue-mode','open');shiftBuilding(true);
+  document.getElementById('pi').src='https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80';
+  document.getElementById('pb2').textContent='Rooftop · Above Floor 5';
+  document.getElementById('prn').textContent='';
+  document.getElementById('ptitle').textContent='Rooftop Lounge & Dining';
+  document.getElementById('pprice').innerHTML='Open daily <small>from 17:00 · Panoramic Views</small>';
+  document.getElementById('pfeats').innerHTML=`
+    <div class="feat"><div class="feat-ic">🌅</div><div class="feat-l">Views</div><div class="feat-v">360° Panorama</div></div>
+    <div class="feat"><div class="feat-ic">🍽️</div><div class="feat-l">Cuisine</div><div class="feat-v">Modern British</div></div>
+    <div class="feat"><div class="feat-ic">🍸</div><div class="feat-l">Signature</div><div class="feat-v">Espresso Martini</div></div>
+    <div class="feat"><div class="feat-ic">🕔</div><div class="feat-l">Hours</div><div class="feat-v">17:00 – 23:00</div></div>`;
+  document.getElementById('pxs-t').textContent='Dining Experiences';
+  document.getElementById('pxs').innerHTML=`
+    <div class="xc" onclick="ask('I would like to book a table at the Rooftop Lounge')"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70"/><div class="xc-inf"><div class="xc-cat">Dinner for Two</div><div class="xc-name">Rooftop Lounge</div><div class="xc-pr">£120 per person · 7 courses</div></div></div>
+    <div class="xc" onclick="ask('I would like to book a table at the Grandure Restaurant')"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70"/><div class="xc-inf"><div class="xc-cat">Fine Dining</div><div class="xc-name">Grandure Restaurant</div><div class="xc-pr">À la carte from £45</div></div></div>
+    <div class="xc" onclick="ask('I would like to book a table at the Pool Bar')"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120&q=70"/><div class="xc-inf"><div class="xc-cat">Casual Dining</div><div class="xc-name">Pool Bar</div><div class="xc-pr">from £14 · Open midday</div></div></div>`;
+  const roofCta=document.getElementById('pcta');
+  roofCta.textContent='Reserve a Table';
+  roofCta.style.background='var(--gold)';
+  roofCta.onclick=()=>ask('I would like to book a table for dinner');
+  if(lastAutoAsked!=='rooftop'){
+    lastAutoAsked='rooftop';
+    ask('Tell me about the Rooftop Lounge and Dining','Guest has opened the Rooftop Dining — describe the rooftop venue, dining experiences and menu highlights, do not ask for check-in date or number of guests');
+  }
+}
+
+function closePanel(){
+  document.getElementById('room-panel').classList.remove('open','venue-mode');
+  selRoom=null;shiftBuilding(false);buildSVGHotel();
+}
+
+// ── Chat ──
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chat-float').classList.toggle('open',chatOpen);}
+function openChat(){chatOpen=true;document.getElementById('chat-float').classList.add('open');}
+function setBub(t){document.getElementById('cbub').textContent=t;}
+function showTyp(){document.getElementById('cbub').innerHTML='<div class="tdots"><span></span><span></span><span></span></div>';}
+
+function navFromText(t){
+  const tl=t.toLowerCase();
+  for(const n of NAV){if(n.k.some(k=>tl.includes(k)))return n;}
+  return null;
+}
+
+async function ask(text, contextHint){
+  if(typing)return;
+  typing=true;openChat();
+  document.getElementById('cinp').value='';
+  setDQR([]);
+  // Prepend silent context for the model when the user triggers an action from the building
+  const payload = contextHint ? `[Context: ${contextHint}] ${text}` : text;
+  // Skip nav detection for internal panel calls (contextHint set) — prevents circular selRoof/selFloor loops
+  const nav = contextHint ? null : navFromText(text);
+  if(nav){
+    setTimeout(()=>{
+      if(nav.f==='roof'){selRoof();}
+      else{
+        selFloor(nav.f);
+        if(nav.t){const fl=FLOORS.find(f=>f.n===nav.f);const r=fl?.rooms.find(r=>r.t===nav.t&&r.s==='AVAILABLE');if(r)openRoom(r.id);}
+      }
+    },250);
+  }
+  // Wizard: advance offer-step when user sends any message during that step
+  if(bookingStep==='spa_offer') bookingStep='spa_pending';
+  else if(bookingStep==='table_offer') bookingStep='table_pending';
+  showTyp();
+  // Store display text in history but send enriched payload to API
+  hist.push({role:'user',content:text});
+  const apiMessages=hist.slice(-6).map((m,i,a)=>
+    (i===a.length-1&&m.role==='user'&&payload!==text)?{...m,content:payload}:m
+  );
+  try{
+    const res=await fetch(`${BACKEND}/api/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:apiMessages,provider:'claude'})});
+    if(res.ok){
+      const d=await res.json(),reply=d.reply||'';
+      hist.push({role:'assistant',content:reply});setBub(reply);
+      setDQR(d.quick_replies||[]);
+
+      // Booking wizard flow
+      if(bookingStep==='room_pending'){
+        if(/confirm|book|reserv|arranged|certainly|pleasure|happy to/i.test(reply)){
+          bookingData.roomSummary=reply;
+          bookingStep='spa_offer';
+          setTimeout(offerSpa,700);
+        }
+      } else if(bookingStep==='spa_pending'){
+        bookingData.spaSummary=reply;
+        bookingStep='table_offer';
+        setTimeout(offerTable,700);
+      } else if(bookingStep==='table_pending'){
+        bookingData.tableSummary=reply;
+        bookingStep='email_prompt';
+        setTimeout(askForEmail,700);
+      }
+
+      // Navigate from AI reply only when user triggered (not internal panel auto-asks)
+      if(!contextHint){
+        const n2=navFromText(reply);
+        if(n2&&!nav){
+          const alreadyThere=(n2.f==='roof'&&activeF==='roof')||(n2.f===activeF&&!n2.t);
+          if(!alreadyThere){
+            setTimeout(()=>{
+              if(n2.f==='roof')selRoof();
+              else{selFloor(n2.f);if(n2.t){const fl=FLOORS.find(f=>f.n===n2.f);const r=fl?.rooms.find(r=>r.t===n2.t&&r.s==='AVAILABLE');if(r)openRoom(r.id);}}
+            },400);
+          }
+        }
+      }
+    } else throw new Error();
+  } catch{
+    const tl=text.toLowerCase();
+    let rep='I am here to help you navigate Grandure. Ask me about any room, spa treatment, or dining option.';
+    for(const[k,m]of Object.entries(FALLBACK)){if(tl.includes(k)){rep=m;break;}}
+    hist.push({role:'assistant',content:rep});setBub(rep);
+  }
+  typing=false;
+}
+function send(){
+  const v=document.getElementById('cinp').value.trim();
+  if(!v)return;
+  document.getElementById('cinp').value='';
+  const em=v.match(EMAIL_RE);
+  if(em&&(awaitingEmail||bookingStep==='email_prompt')){
+    guestEmail=em[0];
+    awaitingEmail=false;
+    bookingStep='done';
+    if(!emailSent){emailSent=true;sendSummaryEmail(guestEmail,buildFullSummary());}
+    return;
+  }
+  ask(v);
+}
+
+async function sendSummaryEmail(to, summary){
+  try{
+    const r=await fetch(`${BACKEND}/api/send-email`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({to,summary}),
+    });
+    if(r.ok){setBub('Your booking summary has been sent to '+to+'. Our concierge will be in touch shortly.');}
+    else{setBub('I was unable to send the email at this time. Please contact concierge@grandure.com directly.');}
+  }catch(e){
+    setBub('Email delivery error. Please contact our concierge directly at concierge@grandure.com.');
+  }
+}
+
+function offerSpa(){
+  setBub('Wonderful — your room is reserved. Would you like to add a relaxing spa treatment to complete your stay?');
+  setDQR([
+    {label:'Add spa treatment',action:"ask('I would like to book a spa treatment')"},
+    {label:'Skip — go to dining',action:"wizardSkip('spa')"},
+    {label:'No thank you',action:"wizardSkip('all')"},
+  ]);
+}
+function offerTable(){
+  setBub('Perfect. Would you also like to reserve a table at one of our dining venues?');
+  setDQR([
+    {label:'Rooftop Lounge',action:"ask('I would like to book a table at the Rooftop Lounge')"},
+    {label:'Grandure Restaurant',action:"ask('I would like to book a table at the Grandure Restaurant')"},
+    {label:'Skip dining',action:"wizardSkip('table')"},
+  ]);
+}
+function askForEmail(){
+  awaitingEmail=true;
+  setBub('Everything is arranged. Please type your email address below and we will send you a full confirmation summary.');
+  setDQR([]);
+}
+function wizardSkip(which){
+  if(which==='spa'){bookingStep='table_offer';setTimeout(offerTable,300);}
+  else{bookingStep='email_prompt';setTimeout(askForEmail,300);}
+}
+function buildFullSummary(){
+  const parts=[];
+  if(bookingData.roomSummary) parts.push('ROOM BOOKING\n'+bookingData.roomSummary);
+  if(bookingData.spaSummary)  parts.push('SPA BOOKING\n'+bookingData.spaSummary);
+  if(bookingData.tableSummary)parts.push('DINING RESERVATION\n'+bookingData.tableSummary);
+  return parts.join('\n\n---\n\n')||'Grandure booking confirmation.';
+}
+
+document.getElementById('csend').addEventListener('click',send);
+document.getElementById('cinp').addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+document.querySelectorAll('.cf-qp-btn').forEach(b=>b.addEventListener('click',()=>{
+  const q=b.dataset.q||b.textContent.trim();
+  const ctx=b.dataset.ctx||null;
+  setDQR([]);ask(q,ctx);
+}));
+
+function setDQR(opts){
+  const el=document.getElementById('cf-dqr');
+  if(!opts||!opts.length){el.innerHTML='';return;}
+  el.innerHTML=opts.map(o=>{
+    if(typeof o==='string') return `<button class="cf-dqr-btn" onclick="setDQR([]);ask('${o.replace(/'/g,"&#39;")}')">${o}</button>`;
+    return `<button class="cf-dqr-btn" onclick="setDQR([]);${o.action}">${o.label}</button>`;
+  }).join('');
+}
+
+/* ── Voice Input ── */
+(function(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  const btn=document.getElementById('cmic');
+  if(!SR){btn.style.display='none';return;}
+  let rec=null,active=false;
+  btn.addEventListener('click',()=>{
+    if(active){rec&&rec.stop();return;}
+    rec=new SR();rec.lang='en-GB';rec.interimResults=false;rec.maxAlternatives=1;
+    active=true;btn.classList.add('listening');
+    rec.onresult=e=>{
+      const t=e.results[0][0].transcript;
+      document.getElementById('cinp').value=t;
+      document.getElementById('cinp').focus();
+    };
+    rec.onend=()=>{active=false;btn.classList.remove('listening');};
+    rec.onerror=()=>{active=false;btn.classList.remove('listening');};
+    rec.start();
+  });
+})();
+
+window.selFloor=selFloor;window.selRoof=selRoof;
+window.openRoom=openRoom;window.closePanel=closePanel;
+window.openChat=openChat;window.toggleChat=toggleChat;
+window.ask=ask;window.send=send;window.setDQR=setDQR;
+window.showTip=showTip;window.hideTip=hideTip;
+window.wizardSkip=wizardSkip;
+
+// Init — honour URL hash for deep-linking from index.html
+buildSVGHotel();
+(function(){
+  const h=location.hash.replace('#','').toLowerCase();
+  const delay=150;
+  if(h==='spa')           setTimeout(()=>selFloor(2),delay);
+  else if(h==='dining'||h==='rooftop') setTimeout(()=>selRoof(),delay);
+  else if(h==='floor4')   setTimeout(()=>selFloor(4),delay);
+  else if(h==='floor3')   setTimeout(()=>selFloor(3),delay);
+  else if(h==='floor1')   setTimeout(()=>selFloor(1),delay);
+  else                    setTimeout(()=>selFloor(5),delay);
+})();
+</script>
+</body>
+</html>
