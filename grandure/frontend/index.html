@@ -33,15 +33,16 @@ body{background:var(--void);color:var(--ivory);font-family:var(--sans);font-weig
 nav{
   position:fixed;top:0;left:0;right:0;z-index:500;
   display:flex;align-items:center;justify-content:space-between;
-  padding:32px 72px;
+  padding:28px 72px;
+  background:linear-gradient(to bottom,rgba(4,3,2,0.72) 0%,transparent 100%);
   transition:all 0.5s var(--ease);
 }
 nav.scrolled{
-  background:rgba(4,3,2,0.82);
+  background:rgba(4,3,2,0.88);
   backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
-  padding:20px 72px;
+  padding:18px 72px;
 }
 .nav-logo{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:5px}
 .nav-logo-name{
@@ -76,47 +77,49 @@ nav.scrolled .nav-logo-sub{opacity:1}
 
 /* ── Hero ──────────────────────────────────────────────── */
 .hero{
-  height:100vh;min-height:700px;
-  position:relative;display:flex;align-items:flex-end;overflow:hidden;
+  height:100vh;min-height:680px;
+  position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;overflow:hidden;
   background:var(--void);
 }
 #heroCanvas{position:absolute;inset:0;z-index:1;opacity:0.7}
 .hero-photo{
   position:absolute;inset:0;z-index:2;
   background:url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1800&q=80') center/cover;
-  opacity:0.28;
+  opacity:0.38;
 }
 .hero-overlay{
   position:absolute;inset:0;z-index:3;
   background:linear-gradient(
     135deg,
-    rgba(4,3,2,0.96) 0%,
-    rgba(4,3,2,0.6) 50%,
-    rgba(4,3,2,0.3) 100%
+    rgba(4,3,2,0.92) 0%,
+    rgba(4,3,2,0.55) 55%,
+    rgba(4,3,2,0.25) 100%
   );
 }
 .hero-overlay-b{
   position:absolute;inset:0;z-index:3;
-  background:linear-gradient(to top,rgba(4,3,2,1) 0%,transparent 55%);
+  background:linear-gradient(to top,rgba(4,3,2,1) 0%,transparent 60%);
 }
 .hero-inner{
   position:relative;z-index:4;
-  padding:0 72px 100px;
-  max-width:760px;
+  padding:110px 72px 72px;
+  max-width:800px;
+  margin-top:auto;
 }
 .hero-tag{
   font-family:var(--sans);font-size:9px;letter-spacing:0.45em;
   text-transform:uppercase;color:var(--gold);
-  margin-bottom:28px;display:flex;align-items:center;gap:20px;
+  margin-bottom:24px;display:flex;align-items:center;gap:20px;
   opacity:0;transform:translateY(16px);
   animation:fadeUp 0.9s 0.3s var(--ease) forwards;
 }
 .hero-tag::before{content:'';width:40px;height:1px;background:var(--gold)}
 .hero-h1{
   font-family:var(--serif);
-  font-size:clamp(58px,8vw,104px);
+  font-size:clamp(42px,5.5vw,82px);
   font-weight:300;color:#fff;
-  line-height:1.0;margin-bottom:28px;
+  line-height:1.08;margin-bottom:24px;
   letter-spacing:-0.01em;
   opacity:0;transform:translateY(24px);
   animation:fadeUp 1s 0.5s var(--ease) forwards;
@@ -126,9 +129,9 @@ nav.scrolled .nav-logo-sub{opacity:1}
   display:block;
 }
 .hero-p{
-  font-family:var(--serif);font-size:18px;
-  color:rgba(240,235,224,0.55);line-height:1.9;
-  margin-bottom:52px;font-style:italic;max-width:500px;
+  font-family:var(--serif);font-size:17px;
+  color:rgba(240,235,224,0.55);line-height:1.85;
+  margin-bottom:40px;font-style:italic;max-width:520px;
   opacity:0;transform:translateY(20px);
   animation:fadeUp 1s 0.7s var(--ease) forwards;
 }
@@ -658,9 +661,10 @@ footer{
 
 /* ── Responsive ───────────────────────────────────────── */
 @media(max-width:900px){
-  nav{padding:20px 28px}
+  nav{padding:18px 28px}
   .nav-links,.nav-book{display:none}
-  .hero-inner{padding:0 28px 80px}
+  .hero-inner{padding:80px 28px 60px}
+  .hero-h1{font-size:clamp(36px,8vw,58px)}
   .sec{padding:90px 28px}
   .rooms-grid{grid-template-columns:1fr}
   .room-card:first-child{grid-column:span 1;aspect-ratio:4/3}
@@ -719,7 +723,7 @@ footer{
   <p class="sec-p reveal reveal-d2">Five floors of singular spaces — from panoramic Presidential Suites to intimate Superior rooms with garden views. Every room an expression of considered craft.</p>
   <div class="rule reveal reveal-d3"></div>
   <div class="rooms-grid reveal reveal-d4">
-    <a class="room-card" data-tilt href="explore.html" style="text-decoration:none;display:block">
+    <div class="room-card" data-tilt onclick="location.href='explore.html'">
       <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1400&q=80" alt="Presidential Suite" loading="lazy"/>
       <div class="room-shine"></div>
       <div class="room-info">
@@ -728,8 +732,8 @@ footer{
         <div class="room-price">From £1,200 per night</div>
       </div>
       <div class="room-border"></div>
-    </a>
-    <a class="room-card" data-tilt href="explore.html#floor4" style="text-decoration:none;display:block">
+    </div>
+    <div class="room-card" data-tilt onclick="location.href='explore.html#floor4'">
       <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&q=80" alt="Junior Suite" loading="lazy"/>
       <div class="room-shine"></div>
       <div class="room-info">
@@ -738,8 +742,8 @@ footer{
         <div class="room-price">From £450 per night</div>
       </div>
       <div class="room-border"></div>
-    </a>
-    <a class="room-card" data-tilt href="explore.html#floor3" style="text-decoration:none;display:block">
+    </div>
+    <div class="room-card" data-tilt onclick="location.href='explore.html#floor3'">
       <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=900&q=80" alt="Superior Room" loading="lazy"/>
       <div class="room-shine"></div>
       <div class="room-info">
@@ -748,7 +752,7 @@ footer{
         <div class="room-price">From £220 per night</div>
       </div>
       <div class="room-border"></div>
-    </a>
+    </div>
   </div>
 </section>
 
