@@ -394,7 +394,9 @@ html,body{height:100%;overflow:hidden;background:var(--ink);font-family:var(--sa
 </div>
 
 <script>
-const BACKEND = "https://grandure.onrender.com";
+const BACKEND = window.location.hostname==="localhost"||window.location.hostname==="127.0.0.1"
+  ? "http://localhost:8000"
+  : "https://grandure.onrender.com";
 
 // ── Building coordinate constants ──
 const B = {
@@ -516,7 +518,7 @@ const FALLBACK={
 
 let activeF=5, selRoom=null, hist=[], typing=false, chatOpen=false;
 let guestEmail=null, emailSent=false, awaitingEmail=false, lastAutoAsked=null;
-let bookingStep='idle', bookingData={};
+let bookingStep='idle', bookingData={}, lastSummary=null;
 const EMAIL_RE=/\b[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}\b/;
 
 // ── Stars ──
@@ -763,7 +765,7 @@ function openRoom(rid){
   cta.textContent=room.s==='AVAILABLE'?'Reserve This Room':'Join Waitlist';
   cta.style.background=room.s==='AVAILABLE'?'var(--gold)':'rgba(201,168,76,.22)';
   cta.onclick=room.s==='AVAILABLE'
-    ?()=>{bookingStep='room_pending';bookingData={};ask(`I would like to reserve the ${room.t}`);}
+    ?()=>{bookingStep='room_pending';bookingData={room:{name:room.t,price:room.p,id:room.id}};ask(`I would like to reserve the ${room.t}`);}
     :null;
   document.getElementById('room-panel').classList.add('open');
   shiftBuilding(true);
@@ -850,20 +852,27 @@ async function ask(text, contextHint){
   setDQR([]);
   // Prepend silent context for the model when the user triggers an action from the building
   const payload = contextHint ? `[Context: ${contextHint}] ${text}` : text;
-  // Skip nav detection for internal panel calls (contextHint set) — prevents circular selRoof/selFloor loops
-  const nav = contextHint ? null : navFromText(text);
+  // Skip nav detection for internal panel calls (contextHint set) or during active booking wizard
+  // — prevents panel auto-asks from navigating away and corrupting wizard state
+  const wizardActive = bookingStep!=='idle'&&bookingStep!=='done';
+  const nav = (contextHint||wizardActive) ? null : navFromText(text);
   if(nav){
     setTimeout(()=>{
-      if(nav.f==='roof'){selRoof();}
-      else{
-        selFloor(nav.f);
-        if(nav.t){const fl=FLOORS.find(f=>f.n===nav.f);const r=fl?.rooms.find(r=>r.t===nav.t&&r.s==='AVAILABLE');if(r)openRoom(r.id);}
+      const alreadyThere=(nav.f==='roof'&&activeF==='roof')||(nav.f===activeF&&!nav.t);
+      if(!alreadyThere){
+        if(nav.f==='roof'){selRoof();}
+        else{
+          selFloor(nav.f);
+          if(nav.t){const fl=FLOORS.find(f=>f.n===nav.f);const r=fl?.rooms.find(r=>r.t===nav.t&&r.s==='AVAILABLE');if(r)openRoom(r.id);}
+        }
       }
     },250);
   }
-  // Wizard: advance offer-step when user sends any message during that step
-  if(bookingStep==='spa_offer') bookingStep='spa_pending';
-  else if(bookingStep==='table_offer') bookingStep='table_pending';
+  // Wizard: advance offer-step and capture intent — only for user-initiated messages (not internal auto-asks)
+  if(!contextHint){
+    if(bookingStep==='spa_offer'){bookingStep='spa_pending';bookingData.spaIntent=text;}
+    else if(bookingStep==='table_offer'){bookingStep='table_pending';bookingData.tableIntent=text;}
+  }
   showTyp();
   // Store display text in history but send enriched payload to API
   hist.push({role:'user',content:text});
@@ -876,6 +885,9 @@ async function ask(text, contextHint){
       const d=await res.json(),reply=d.reply||'';
       hist.push({role:'assistant',content:reply});setBub(reply);
       setDQR(d.quick_replies||[]);
+
+      // Capture AI-generated summary (AI's own booking flow R4/S5/D5 confirmation)
+      if(!emailSent && /\b(Room:|Spa:|Dining:)/i.test(reply)) lastSummary=reply;
 
       // Booking wizard flow
       if(bookingStep==='room_pending'){
@@ -894,8 +906,8 @@ async function ask(text, contextHint){
         setTimeout(askForEmail,700);
       }
 
-      // Navigate from AI reply only when user triggered (not internal panel auto-asks)
-      if(!contextHint){
+      // Navigate from AI reply only when user triggered and no active booking wizard
+      if(!contextHint&&!wizardActive){
         const n2=navFromText(reply);
         if(n2&&!nav){
           const alreadyThere=(n2.f==='roof'&&activeF==='roof')||(n2.f===activeF&&!n2.t);
@@ -921,11 +933,16 @@ function send(){
   if(!v)return;
   document.getElementById('cinp').value='';
   const em=v.match(EMAIL_RE);
-  if(em&&(awaitingEmail||bookingStep==='email_prompt')){
+  // Wizard path (CTA button flow) OR AI-chat path (AI asked for email and summary exists)
+  if(em&&(awaitingEmail||bookingStep==='email_prompt'||lastSummary)){
     guestEmail=em[0];
     awaitingEmail=false;
     bookingStep='done';
-    if(!emailSent){emailSent=true;sendSummaryEmail(guestEmail,buildFullSummary());}
+    // Prefer the wizard's structured summary; fall back to AI's raw reply if wizard wasn't used
+    const summary=(bookingData.room||bookingData.spaIntent||bookingData.tableIntent)
+      ?buildFullSummary()
+      :(lastSummary||buildFullSummary());
+    if(!emailSent){emailSent=true;sendSummaryEmail(guestEmail,summary);}
     return;
   }
   ask(v);
@@ -937,9 +954,16 @@ async function sendSummaryEmail(to, summary){
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({to,summary}),
     });
-    if(r.ok){setBub('Your booking summary has been sent to '+to+'. Our concierge will be in touch shortly.');}
-    else{setBub('I was unable to send the email at this time. Please contact concierge@grandure.com directly.');}
+    if(r.ok){
+      setBub('Your booking summary has been sent to '+to+'. Our concierge will be in touch shortly.');
+    } else {
+      let detail='';
+      try{const d=await r.json();detail=d.detail||'';}catch{}
+      console.error('Email endpoint error',r.status,detail);
+      setBub('I was unable to send the confirmation email'+(detail?` (${detail})`:'.')+' Please contact concierge@grandure.com directly.');
+    }
   }catch(e){
+    console.error('Email fetch failed',e);
     setBub('Email delivery error. Please contact our concierge directly at concierge@grandure.com.');
   }
 }
@@ -962,7 +986,17 @@ function offerTable(){
 }
 function askForEmail(){
   awaitingEmail=true;
-  setBub('Everything is arranged. Please type your email address below and we will send you a full confirmation summary.');
+  const s=bookingData.room;
+  const spa=bookingData.spaIntent;
+  const tbl=bookingData.tableIntent;
+  const clean=t=>t.replace(/^i (would like to |want to )?(book|reserve|add) (a |the |a spa )?/i,'').replace(/^(a |the )/i,'').trim();
+  let html=`<div style="margin-bottom:10px;font-family:var(--sans);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)">✦ Your Booking Summary</div>`;
+  const row=(label,val)=>`<div style="display:flex;gap:10px;margin-bottom:7px;border-left:2px solid rgba(201,168,76,.35);padding-left:10px"><span style="font-family:var(--sans);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.32);min-width:52px">${label}</span><span style="font-family:var(--serif);font-size:13px;color:rgba(255,255,255,.82)">${val}</span></div>`;
+  if(s) html+=row('Room',`${s.name} · £${s.price}/night`);
+  if(spa) html+=row('Spa',clean(spa));
+  if(tbl) html+=row('Dining',clean(tbl));
+  html+=`<div style="margin-top:13px;font-family:var(--sans);font-size:10px;letter-spacing:.08em;color:rgba(201,168,76,.75)">Please type your email address to receive this confirmation.</div>`;
+  document.getElementById('cbub').innerHTML=html;
   setDQR([]);
 }
 function wizardSkip(which){
@@ -970,11 +1004,14 @@ function wizardSkip(which){
   else{bookingStep='email_prompt';setTimeout(askForEmail,300);}
 }
 function buildFullSummary(){
-  const parts=[];
-  if(bookingData.roomSummary) parts.push('ROOM BOOKING\n'+bookingData.roomSummary);
-  if(bookingData.spaSummary)  parts.push('SPA BOOKING\n'+bookingData.spaSummary);
-  if(bookingData.tableSummary)parts.push('DINING RESERVATION\n'+bookingData.tableSummary);
-  return parts.join('\n\n---\n\n')||'Grandure booking confirmation.';
+  const s=bookingData.room;
+  const clean=t=>t.replace(/^i (would like to |want to )?(book|reserve|add) (a |the |a spa )?/i,'').replace(/^(a |the )/i,'').trim();
+  const lines=['Grandure Hotel — Booking Confirmation'];
+  if(s) lines.push(`Room: ${s.name} (${s.id}) — £${s.price} per night · June 2026`);
+  if(bookingData.spaIntent) lines.push(`Spa: ${clean(bookingData.spaIntent)}`);
+  if(bookingData.tableIntent) lines.push(`Dining: ${clean(bookingData.tableIntent)}`);
+  lines.push('','Our concierge will be in touch shortly to confirm all arrangements.');
+  return lines.join('\n');
 }
 
 document.getElementById('csend').addEventListener('click',send);
