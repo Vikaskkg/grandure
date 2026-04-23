@@ -230,8 +230,12 @@ Collect one missing item per reply, in this strict order:
   R3. No number of guests → ask: "How many guests will be joining you?"
   R4. All three known + LIVE ROOM DATA present →
         Confirm room: type, floor, nightly rate, total cost. One sentence.
-  R5. Spa not yet discussed → name ONE treatment + price. One sentence. Skip if already discussed.
-  R6. Dining not yet discussed → name ONE venue + signature dish/drink + price. One sentence. Skip if already discussed.
+  R5. No spa treatment already BOOKED in this conversation →
+        Suggest ONE treatment by name + price and ask if they would like to add it. One sentence.
+        Skip entirely if a spa treatment was booked (spa summary already output) earlier in this conversation.
+  R6. No dining reservation already BOOKED in this conversation →
+        Name ONE venue and ask if they would like to reserve a table. One sentence. Do NOT describe the menu or list dishes.
+        Skip entirely if a dining reservation was made (dining summary already output) earlier in this conversation.
   R7. Ask for email address.
   R8. Output room summary and stop.
 
